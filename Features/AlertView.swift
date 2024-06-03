@@ -22,18 +22,9 @@ struct AlertView: View {
         .alert(isPresented: $showingAlert, content: {
           Alert(title: Text("Alert Title"), message: Text("This is an alert message"), primaryButton: .default(Text("OK")), secondaryButton: .destructive(Text("Cancel")))
         })
-        NavigationLink(destination: SecondView()) { // NavigationLink with destination view
-          Text("Go to Second View")
-        }
       }
     }
   }
-
-struct SecondView: View {
-  var body: some View {
-    Text("This is the second view")
-  }
-}
 
 #Preview {
     AlertView()
