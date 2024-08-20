@@ -16,6 +16,11 @@ struct ContentView: View {
                     Image(systemName: "triangle")
                     Text("Alerts")
             }
+            TextFieldView()
+                .tabItem {
+                    Image(systemName: "pencil")
+                    Text("Text")
+                }
             WebView(url: URL(string: "https://apple.com")!)
                 .tabItem {
                     Image(systemName: "globe")
