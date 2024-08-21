@@ -37,6 +37,13 @@ final class FeaturesUITests: XCTestCase {
         app.buttons["Submit"].tap()
     }
     
+    func testSetText() throws {
+        let app = XCUIApplication()
+        app.tabBars["Tab Bar"].buttons["Text"].tap()
+        app.textFields["Enter your text here"].setText("Hello World", doubleTap: false)
+        app.buttons["Submit"].tap()
+      }
+    
     func testWebView() throws {
         let app = XCUIApplication()
         app.tabBars["Tab Bar"].buttons["WebView"].tap()

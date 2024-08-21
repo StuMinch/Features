@@ -18,6 +18,7 @@
 		17E30DC02C03922500E60561 /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DBF2C03922500E60561 /* FeaturesTests.swift */; };
 		17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DC92C03922500E60561 /* FeaturesUITests.swift */; };
 		17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */; };
+		64B7E8182C766AC300FC539F /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B7E8172C766AC300FC539F /* TestHelpers.swift */; };
 		64DA2B6B2C741B820025D34B /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B6A2C741B820025D34B /* TextFieldView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		17E30DC52C03922500E60561 /* FeaturesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeaturesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17E30DC92C03922500E60561 /* FeaturesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITests.swift; sourceTree = "<group>"; };
 		17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		64B7E8172C766AC300FC539F /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		64DA2B6A2C741B820025D34B /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,10 +107,10 @@
 				17E30DAE2C03922400E60561 /* FeaturesApp.swift */,
 				17E30DB02C03922400E60561 /* ContentView.swift */,
 				17DFDA3B2C0D82FB005195E4 /* AlertView.swift */,
+				64DA2B6A2C741B820025D34B /* TextFieldView.swift */,
 				175423932C03E52B00310374 /* WebView.swift */,
 				17E30DB22C03922500E60561 /* Assets.xcassets */,
 				17E30DB42C03922500E60561 /* Preview Content */,
-				64DA2B6A2C741B820025D34B /* TextFieldView.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -134,6 +136,7 @@
 			children = (
 				17E30DC92C03922500E60561 /* FeaturesUITests.swift */,
 				17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */,
+				64B7E8172C766AC300FC539F /* TestHelpers.swift */,
 			);
 			path = FeaturesUITests;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				175423962C03E52B00310374 /* WebView.swift in Sources */,
 				17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */,
 				17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */,
+				64B7E8182C766AC300FC539F /* TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
