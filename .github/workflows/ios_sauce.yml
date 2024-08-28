@@ -23,6 +23,9 @@ jobs:
       - name: Check working directory
         run: pwd
 
+      - name: List everything in the working directory
+        run: ls -al /home/runner/work/Features/Features
+
       - name: Run Sauce Labs tests
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
