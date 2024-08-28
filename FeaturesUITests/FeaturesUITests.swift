@@ -40,6 +40,7 @@ final class FeaturesUITests: XCTestCase {
     func testSetText() throws {
         let app = XCUIApplication()
         app.tabBars["Tab Bar"].buttons["Text"].tap()
+        sleep(1)
         app.textFields["Enter your text here"].setText("Hello World", doubleTap: false)
         app.buttons["Submit"].tap()
       }

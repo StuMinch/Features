@@ -26,7 +26,7 @@ extension XCUIElement {
       self.typeText(text)
     } else {
       // Seems as a customem func but I will send a text to empty field
-   //   self.tapAtRelativeCoordinates(rx: 0.9, ry: 0.9)
+      //self.tapAtRelativeCoordinates(rx: 0.9, ry: 0.9)
       self.typeText(deleteString + text)
     }
   }
