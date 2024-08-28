@@ -1,0 +1,28 @@
+name: Run Sauce Labs Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  run-wdio-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Install saucectl
+        run: npm install -g saucectl
+
+      - name: Run Sauce Labs tests
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        run: saucectl run -c saucectl.yml
+
