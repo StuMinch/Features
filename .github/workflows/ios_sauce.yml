@@ -6,7 +6,7 @@ on:
     paths:
       - ".saucectl"
     branches:
-      - githubactions
+      - main
 
 env:
   SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
