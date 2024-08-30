@@ -1,12 +1,12 @@
-name: saucectl cypress tests v1
+name: saucectl xcuitest
 
 on:
   pull_request:
   push:
     paths:
-      - "v1"
+      - ".saucectl"
     branches:
-      - main
+      - githubactions
 
 env:
   SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
@@ -23,4 +23,4 @@ jobs:
       - name: Run saucectl
         uses: saucelabs/saucectl-run-action@v4
         with:
-          working-directory: v1
+          working-directory: 
