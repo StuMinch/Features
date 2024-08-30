@@ -23,4 +23,4 @@ jobs:
       - name: Run saucectl
         uses: saucelabs/saucectl-run-action@v4
         with:
-          working-directory: 
+          working-directory: .saucectl 

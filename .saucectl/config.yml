@@ -2,7 +2,7 @@ apiVersion: v1alpha
 kind: xcuitest
 sauce:
   region: us-west-1
-  concurrency: 20
+  concurrency: 10
   metadata:
     build: "Features iOS App"
 xcuitest:
