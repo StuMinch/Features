@@ -1,0 +1,18 @@
+apiVersion: v1alpha
+kind: xcuitest
+sauce:
+  region: us-west-1
+  concurrency: 20
+  metadata:
+    build: "Features iOS App"
+xcuitest:
+  app: ./Features.zip
+  testApp: ./FeaturesUITests-Runner.zip
+
+suites:
+  - name: "Feature iOS App on Simulator"
+    simulators:
+    - name: "iPhone 15 Simulator"
+      armRequired: true
+      platformVersions: 
+        - "17.5"
