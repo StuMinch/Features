@@ -1,12 +1,10 @@
 name: saucectl xcuitest
 
 on:
-  pull_request:
   push:
-    paths:
-      - "./"
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
