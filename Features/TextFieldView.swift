@@ -1,14 +1,8 @@
-//
-//  TextFieldView.swift
-//  Features
-//
-//  Created by Stuart Minchington on 8/19/24.
-//
-
 import SwiftUI
 
 struct TextFieldView: View {
     @State private var inputText = ""
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -22,6 +16,14 @@ struct TextFieldView: View {
             }
             .padding()
             .background(Color(red: 0, green: 0, blue: 0.5))
+            .foregroundStyle(.white)
+            .clipShape(Capsule())
+
+            Button("Back") {
+                presentationMode.wrappedValue.dismiss()
+            }
+            .padding()
+            .background(Color(red: 0.5, green: 0, blue: 0))
             .foregroundStyle(.white)
             .clipShape(Capsule())
         }
