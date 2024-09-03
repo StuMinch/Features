@@ -26,8 +26,10 @@ jobs:
           xcodebuild -project Features.xcodeproj \
                      -scheme Features \
                      -sdk iphonesimulator \
+                     -arch arm64 -arch x86_64 \
                      -configuration Debug \
-                     -derivedDataPath $PWD/build
+                     -derivedDataPath $PWD/build \
+                     clean build
 
       - name: Compress .app bundle
         run: |
