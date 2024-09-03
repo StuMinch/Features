@@ -36,19 +36,17 @@ jobs:
           cd build/Build/Products/Debug-iphonesimulator
           zip -r Features.app.zip Features.app
 
-      - name: Compress FeaturesUITests-Runner.app bundle
-        run: |
-          cd build/Build/Products/Debug-iphonesimulator
-          zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
-
       - name: Upload Features.app to Sauce Labs
         run: |
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
-                 -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
-                 -H "Content-Type: application/octet-stream" \
-                 --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/Features.app.zip" \
-                 -F "filename=Features.app.zip" \
-                 -F "overwrite=true"
+                   -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
+                   -H "Content-Type: application/octet-stream" \
+                   --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/Features.app.zip" \
+                   -F "filename=Features.app.zip" \
+                   -F "overwrite=true"
+
+      - name: Compress FeaturesUITests-Runner.app bundle
+        run: zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
 
       - name: Upload FeaturesUITests-Runner.app to Sauce Labs
         run: |
