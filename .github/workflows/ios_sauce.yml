@@ -40,6 +40,7 @@ jobs:
         run: |
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
                    --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+                   --data-binary @"$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip" \
                    --form 'payload=@"g16K4P8IX/Features.app.zip"' \
                    --form 'name="Features.app.zip"' \
                    --form 'description="Features"'
@@ -49,12 +50,12 @@ jobs:
 
       - name: Upload FeaturesUITests-Runner.app to Sauce Labs
         run: |
-          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
-                 -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
-                 -H "Content-Type: application/octet-stream" \
-                 --data-binary @"$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip" \
-                 -F "filename=FeaturesUITests-Runner.app.zip" \
-                 -F "overwrite=true"
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
+                   --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+                   --data-binary @"$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip" \
+                   --form 'payload=@"g16K4P8IX/FeaturesUITests-Runner.app.zip"' \
+                   --form 'name="FeaturesUITests-Runner.app.zip"' \
+                   --form 'description="FeaturesUITests-Runner"'
 
       - name: Run saucectl
         uses: saucelabs/saucectl-run-action@v4
