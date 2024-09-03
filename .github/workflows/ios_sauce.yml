@@ -41,7 +41,7 @@ jobs:
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
                    -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
                    -H "Content-Type: application/octet-stream" \
-                   --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/Features.app.zip" \
+                   --data-binary @"$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip" \
                    -F "filename=Features.app.zip" \
                    -F "overwrite=true"
 
@@ -53,7 +53,7 @@ jobs:
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
                  -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
                  -H "Content-Type: application/octet-stream" \
-                 --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/FeaturesUITests-Runner.app.zip" \
+                 --data-binary @"$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip" \
                  -F "filename=FeaturesUITests-Runner.app.zip" \
                  -F "overwrite=true"
 
