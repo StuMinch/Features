@@ -26,11 +26,6 @@ struct ContentView: View {
                     Image(systemName: "globe")
                     Text("WebView")
             }
-            ApplePayView()
-                .tabItem {
-                    Image(systemName: "dollar")
-                    Text("Apple Pay")
-            }
         }
     }
 }

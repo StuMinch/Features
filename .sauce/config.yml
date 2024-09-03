@@ -6,8 +6,8 @@ sauce:
   metadata:
     build: "Features iOS App"
 xcuitest:
-  app: storage:filename=Features.zip
-  testApp: storage:filename=FeaturesUITests-Runner.zip
+  app: storage:filename=Features.app.zip
+  testApp: storage:filename=FeaturesUITests-Runner.app.zip
 
 suites:
   - name: "Feature iOS App on Simulator"

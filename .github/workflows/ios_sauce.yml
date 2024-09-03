@@ -31,18 +31,32 @@ jobs:
                      -derivedDataPath $PWD/build \
                      clean build
 
-      - name: Compress .app bundle
+      - name: Compress Features.app bundle
         run: |
           cd build/Build/Products/Debug-iphonesimulator
           zip -r Features.app.zip Features.app
 
-      - name: Upload .app to Sauce Labs
+      - name: Compress FeaturesUITests-Runner.app bundle
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator
+          zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
+
+      - name: Upload Features.app to Sauce Labs
         run: |
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
                  -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
                  -H "Content-Type: application/octet-stream" \
                  --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/Features.app.zip" \
                  -F "filename=Features.app.zip" \
+                 -F "overwrite=true"
+
+      - name: Upload FeaturesUITests-Runner.app to Sauce Labs
+        run: |
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
+                 -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
+                 -H "Content-Type: application/octet-stream" \
+                 --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/FeaturesUITests-Runner.app.zip" \
+                 -F "filename=FeaturesUITests-Runner.app.zip" \
                  -F "overwrite=true"
 
       - name: Run saucectl
