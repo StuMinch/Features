@@ -23,7 +23,7 @@ jobs:
 
       - name: Build iOS App for Simulator
         run: |
-          xcodebuild -workspace Features.xcworkspace \
+          xcodebuild -project Features.proj \
                      -scheme Features \
                      -sdk iphonesimulator \
                      -configuration Debug \
