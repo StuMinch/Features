@@ -18,5 +18,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
+
+      - name: Build iOS App for Simulator
+        run: |
+          xcodebuild -workspace Features.xcworkspace \
+                     -scheme Features \
+                     -sdk iphonesimulator \
+                     -configuration Debug \
+                     -derivedDataPath $PWD/build
+
+      - name: Compress .app bundle
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator
+          zip -r Features.app.zip Features.app
+
+      - name: Upload .app to Sauce Labs
+        run: |
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
+                 -X POST "https://api.us-west-1.saucelabs.com/v1/storage/upload" \
+                 -H "Content-Type: application/octet-stream" \
+                 --data-binary @"$PWD/build/Build/Products/Release-iphonesimulator/Features.app.zip" \
+                 -F "filename=Features.app.zip" \
+                 -F "overwrite=true"
+
       - name: Run saucectl
         uses: saucelabs/saucectl-run-action@v4
