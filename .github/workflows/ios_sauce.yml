@@ -37,14 +37,12 @@ jobs:
           cd build/Build/Products/Debug-iphonesimulator
           zip -r Features.app.zip Features.app
 
-      - name: List build directory
-        run: ls -R $PWD/build/Build/Products/Debug-iphonesimulator
-
       - name: Update permissions
         run: |
           chmod +r "$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
           echo "File path: $PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
           ls -al "$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
+          echo $SAUCE_USERNAME
 
       - name: Upload Features.app to Sauce Labs
         run: |
