@@ -26,11 +26,11 @@ jobs:
           xcodebuild -project Features.xcodeproj \
            -scheme Features \
            -sdk iphonesimulator \
-           -arch arm64 -arch x86_64 \
            -configuration Debug \
            -derivedDataPath $PWD/build \
            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
            clean build-for-testing
+
 
       - name: Compress Features.app bundle
         run: |
