@@ -43,14 +43,14 @@ jobs:
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
           --location \
           --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-          --form file=@$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip
+          --form payload=@g16K4P8IX/$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip
 
       - name: Upload FeaturesUITests-Runner.app to Sauce Labs
         run: |
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
           --location \
           --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-          --form file=@$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip
+          --form payload=@g16K4P8IX/$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip
 
       - name: Run saucectl
         uses: saucelabs/saucectl-run-action@v4
