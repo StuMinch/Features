@@ -31,10 +31,12 @@ jobs:
            -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.5' \
            clean build-for-testing
 
-      - name: Compress Features.app bundle
+      - name: Compress Features.app & FeaturesUITests-Runner.app bundles
         run: |
           cd build/Build/Products/Debug-iphonesimulator
           zip -r Features.app.zip Features.app
+          zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
+          ls -al
 
       - name: Upload Features.app to Sauce Labs
         run: |
@@ -42,9 +44,6 @@ jobs:
           --location \
           --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
           --form file=@$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip
-
-      - name: Compress FeaturesUITests-Runner.app bundle
-        run: zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
 
       - name: Upload FeaturesUITests-Runner.app to Sauce Labs
         run: |
