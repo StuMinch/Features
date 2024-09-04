@@ -39,7 +39,7 @@ jobs:
 
       - name: Update permissions
         run: |
-          chmod +r "$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
+          chmod +wrx "$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
           echo "File path: $PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
           ls -al "$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
           echo $SAUCE_USERNAME
