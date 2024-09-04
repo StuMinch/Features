@@ -49,7 +49,7 @@ jobs:
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
           --location \
           --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-          --form 'file=@"$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"'
+          --form file=@$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip
 
       - name: Compress FeaturesUITests-Runner.app bundle
         run: zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
@@ -59,7 +59,7 @@ jobs:
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
             --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-            --form 'file=@$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip' \
+            --form file=@$PWD/build/Build/Products/Debug-iphonesimulator/FeaturesUITests-Runner.app.zip \
             --form 'name="FeaturesUITests-Runner.app.zip"' \
             --form 'description="FeaturesUITests-Runner"'
 
