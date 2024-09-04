@@ -29,7 +29,7 @@ jobs:
                      -arch arm64 -arch x86_64 \
                      -configuration Debug \
                      -derivedDataPath $PWD/build \
-                     clean build
+                     clean build-for-testing
 
       - name: Compress Features.app bundle
         run: |
@@ -39,14 +39,15 @@ jobs:
       - name: List build directory
         run: ls -R $PWD/build/Build/Products/Debug-iphonesimulator
 
+      - name: Update permissions
+        run: chmod +r "$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"
+      
       - name: Upload Features.app to Sauce Labs
         run: |
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
           --location \
           --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
           --form 'file=@"$PWD/build/Build/Products/Debug-iphonesimulator/Features.app.zip"'
-
-
 
       - name: Compress FeaturesUITests-Runner.app bundle
         run: zip -r FeaturesUITests-Runner.app.zip FeaturesUITests-Runner.app
