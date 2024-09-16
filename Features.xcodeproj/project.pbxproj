@@ -19,6 +19,7 @@
 		17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DC92C03922500E60561 /* FeaturesUITests.swift */; };
 		17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */; };
 		64DA2B6B2C741B820025D34B /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B6A2C741B820025D34B /* TextFieldView.swift */; };
+		64F102DB2C98913D00EE2E47 /* ApplePayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F102DA2C98913D00EE2E47 /* ApplePayButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +52,9 @@
 		17E30DC52C03922500E60561 /* FeaturesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeaturesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17E30DC92C03922500E60561 /* FeaturesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITests.swift; sourceTree = "<group>"; };
 		17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6434A8AF2C9882DD007FA0C9 /* Features.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Features.entitlements; sourceTree = "<group>"; };
 		64DA2B6A2C741B820025D34B /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		64F102DA2C98913D00EE2E47 /* ApplePayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,7 @@
 		17E30DAD2C03922400E60561 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6434A8AF2C9882DD007FA0C9 /* Features.entitlements */,
 				17E30DAE2C03922400E60561 /* FeaturesApp.swift */,
 				17E30DB02C03922400E60561 /* ContentView.swift */,
 				17DFDA3B2C0D82FB005195E4 /* AlertView.swift */,
@@ -109,6 +113,7 @@
 				17E30DB22C03922500E60561 /* Assets.xcassets */,
 				17E30DB42C03922500E60561 /* Preview Content */,
 				64DA2B6A2C741B820025D34B /* TextFieldView.swift */,
+				64F102DA2C98913D00EE2E47 /* ApplePayButtonView.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 				64DA2B6B2C741B820025D34B /* TextFieldView.swift in Sources */,
 				17DFDA3C2C0D82FB005195E4 /* AlertView.swift in Sources */,
 				17E30DB12C03922400E60561 /* ContentView.swift in Sources */,
+				64F102DB2C98913D00EE2E47 /* ApplePayButtonView.swift in Sources */,
 				17E30DAF2C03922400E60561 /* FeaturesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,8 +441,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
@@ -445,14 +452,13 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minchington.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -466,8 +472,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
@@ -476,14 +483,13 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minchington.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
