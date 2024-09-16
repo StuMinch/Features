@@ -16,6 +16,11 @@ struct ContentView: View {
                     Image(systemName: "triangle")
                     Text("Alerts")
             }
+            ApplePayButtonView()
+                .tabItem {
+                    Image(systemName: "dollarsign.circle")
+                    Text("Apple Pay")
+                }
             TextFieldView()
                 .tabItem {
                     Image(systemName: "pencil")
