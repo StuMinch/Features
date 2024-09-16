@@ -22,9 +22,10 @@ This app is licensed under the GNU General Public License v3.0 (GPLv3). Please r
 - Build and run the app on your iOS device or simulator.
 
 ### Apple Pay
-The Apple Pay feature requires additional steps to be carried out with your Apple Developer profile. Please review the official Apple Developer documentation for getting started with Apple Pay: https://developer.apple.com/documentation/passkit_apple_pay_and_wallet/apple_pay/setting_up_apple_pay
+To enable the Apple Pay feature, additional steps must be completed using your Apple Developer profile. Please refer to the official Apple Developer documentation for guidance on getting started with Apple Pay.
+https://developer.apple.com/documentation/passkit_apple_pay_and_wallet/apple_pay/setting_up_apple_pay
 
-Once this done, you will need to update the target to be signed by your specific certificates for signing and Merchant ID.
+After completing these steps, ensure that the target is signed with your specific certificates and Merchant ID.
 
 ### Future Development
 I plan to expand this app's functionalities to cover a wider range of mobile automation scenarios. This includes adding features to practice interacting with:
