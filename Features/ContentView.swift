@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ContentView: View {
     
@@ -30,6 +31,11 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "globe")
                     Text("WebView")
+            }
+            MapView()
+                .tabItem {
+                    Image(systemName: "map")
+                    Text("Map")
             }
         }
     }
