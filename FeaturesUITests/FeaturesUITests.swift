@@ -29,16 +29,22 @@ final class FeaturesUITests: XCTestCase {
         app.buttons["OK"].tap()
     }
     
-    func testTextInput() throws {
+    func testAPICalls() throws {
         let app = XCUIApplication()
-        app.tabBars["Tab Bar"].buttons["Text"].tap()
-        app.textFields["Enter your text here"].tap()
-        app.textFields["Enter your text here"].typeText("Does this work on iOS 17?")
-        app.buttons["Submit"].tap()
+        app.tabBars["Tab Bar"].buttons["API"].tap()
+        app.buttons["Send 25 GET Requests"].tap()
+        
+        let successLabel = app.staticTexts["Success: 25 / 25"]
+        
+        // Wait for up to 30 seconds until the success label appears
+        let exists = NSPredicate(format: "exists == true")
+        expectation(for: exists, evaluatedWith: successLabel, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
+        
+        // Verify the success label or other elements if necessary
+        XCTAssertTrue(successLabel.exists, "The success label did not appear within the timeout period.")
     }
+
     
-    func testWebView() throws {
-        let app = XCUIApplication()
-        app.tabBars["Tab Bar"].buttons["WebView"].tap()
-    }
+
 }

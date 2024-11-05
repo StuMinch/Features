@@ -22,11 +22,6 @@ struct ContentView: View {
                     Image(systemName: "dollarsign.circle")
                     Text("Apple Pay")
                 }
-            TextFieldView()
-                .tabItem {
-                    Image(systemName: "pencil")
-                    Text("Text")
-                }
             WebView(url: URL(string: "https://apple.com")!)
                 .tabItem {
                     Image(systemName: "globe")
@@ -36,6 +31,11 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "map")
                     Text("Map")
+            }
+            APICallsView()
+                .tabItem {
+                    Image(systemName: "25.square")
+                    Text("API")
             }
         }
     }
