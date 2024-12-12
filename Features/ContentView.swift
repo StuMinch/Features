@@ -19,6 +19,7 @@ struct ContentView: View {
                         Text("Text")
                     }
                 }
+                .accessibilityIdentifier("Text")
                 
                 NavigationLink(destination: AlertView()) {
                     HStack {

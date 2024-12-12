@@ -29,13 +29,24 @@ final class FeaturesUITests: XCTestCase {
         app.buttons["OK"].tap()
     }
     
-    func testSetText() throws {
+    func testTypeText() throws {
         let app = XCUIApplication()
-        app.tabBars["Tab Bar"].buttons["Text"].tap()
-        //sleep(1)
-        app.textFields["Enter your text here"].setText("Hello World", doubleTap: false)
+        app.collectionViews/*@START_MENU_TOKEN@*/.staticTexts["Text"]/*[[".cells",".buttons[\"Text\"].staticTexts[\"Text\"]",".staticTexts[\"Text\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.textFields["Enter your text here"].tap()
+        app.typeText("Using standard typeText")
         app.buttons["Submit"].tap()
     }
+    
+    
+    func testSetText() throws {
+        let app = XCUIApplication()
+        app.collectionViews/*@START_MENU_TOKEN@*/.staticTexts["Text"]/*[[".cells",".buttons[\"Text\"].staticTexts[\"Text\"]",".staticTexts[\"Text\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+        //sleep(1)
+        app.textFields["Enter your text here"].setText("Using setText", doubleTap: false)
+        app.buttons["Submit"].tap()
+    }
+
+
     
     func testAPICalls() throws {
         let app = XCUIApplication()
