@@ -29,6 +29,14 @@ final class FeaturesUITests: XCTestCase {
         app.buttons["OK"].tap()
     }
     
+    func testSetText() throws {
+        let app = XCUIApplication()
+        app.tabBars["Tab Bar"].buttons["Text"].tap()
+        //sleep(1)
+        app.textFields["Enter your text here"].setText("Hello World", doubleTap: false)
+        app.buttons["Submit"].tap()
+    }
+    
     func testAPICalls() throws {
         let app = XCUIApplication()
         app.tabBars["Tab Bar"].buttons["API"].tap()
@@ -44,7 +52,4 @@ final class FeaturesUITests: XCTestCase {
         // Verify the success label or other elements if necessary
         XCTAssertTrue(successLabel.exists, "The success label did not appear within the timeout period.")
     }
-
-    
-
 }

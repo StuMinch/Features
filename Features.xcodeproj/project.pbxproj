@@ -18,6 +18,7 @@
 		17E30DC02C03922500E60561 /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DBF2C03922500E60561 /* FeaturesTests.swift */; };
 		17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DC92C03922500E60561 /* FeaturesUITests.swift */; };
 		17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */; };
+		647416CC2D0A1F7900D0E1A8 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647416CB2D0A1F7300D0E1A8 /* TestHelpers.swift */; };
 		6481FC052CD007A000AA51DE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6481FC042CD007A000AA51DE /* MapView.swift */; };
 		64A6131A2CD56A5F00FC2BF2 /* APICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A613192CD56A5F00FC2BF2 /* APICallsView.swift */; };
 		64DA2B6B2C741B820025D34B /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B6A2C741B820025D34B /* TextFieldView.swift */; };
@@ -55,6 +56,7 @@
 		17E30DC92C03922500E60561 /* FeaturesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITests.swift; sourceTree = "<group>"; };
 		17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6434A8AF2C9882DD007FA0C9 /* Features.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Features.entitlements; sourceTree = "<group>"; };
+		647416CB2D0A1F7300D0E1A8 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		6481FC042CD007A000AA51DE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		64A613192CD56A5F00FC2BF2 /* APICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallsView.swift; sourceTree = "<group>"; };
 		64DA2B6A2C741B820025D34B /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		17E30DC82C03922500E60561 /* FeaturesUITests */ = {
 			isa = PBXGroup;
 			children = (
+				647416CB2D0A1F7300D0E1A8 /* TestHelpers.swift */,
 				17E30DC92C03922500E60561 /* FeaturesUITests.swift */,
 				17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */,
 			);
@@ -306,6 +309,7 @@
 				175423962C03E52B00310374 /* WebView.swift in Sources */,
 				17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */,
 				17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */,
+				647416CC2D0A1F7900D0E1A8 /* TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +455,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
@@ -467,7 +471,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minchington.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -483,7 +487,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
@@ -499,7 +503,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minchington.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

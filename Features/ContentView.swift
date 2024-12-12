@@ -11,31 +11,50 @@ import CoreLocation
 struct ContentView: View {
     
     var body: some View {
-        TabView {
-            AlertView()
-                .tabItem {
-                    Image(systemName: "triangle")
-                    Text("Alerts")
-            }
-            ApplePayButtonView()
-                .tabItem {
-                    Image(systemName: "dollarsign.circle")
-                    Text("Apple Pay")
+        NavigationView {
+            List {
+                NavigationLink(destination: TextFieldView()) {
+                    HStack {
+                        Image(systemName: "pencil")
+                        Text("Text")
+                    }
                 }
-            WebView(url: URL(string: "https://apple.com")!)
-                .tabItem {
-                    Image(systemName: "globe")
-                    Text("WebView")
-            }
-            MapView()
-                .tabItem {
-                    Image(systemName: "map")
-                    Text("Map")
-            }
-            APICallsView()
-                .tabItem {
-                    Image(systemName: "25.square")
-                    Text("API")
+                
+                NavigationLink(destination: AlertView()) {
+                    HStack {
+                        Image(systemName: "exclamationmark")
+                        Text("Alerts")
+                    }
+                }
+                
+                NavigationLink(destination: ApplePayButtonView()) {
+                    HStack {
+                        Image(systemName: "creditcard")
+                        Text("Apple Pay")
+                    }
+                }
+                
+                
+                NavigationLink(destination: WebView(url: URL(string: "https://apple.com")!)) {
+                    HStack {
+                        Image(systemName: "link")
+                        Text("Web")
+                    }
+                }
+                
+                NavigationLink(destination: MapView()) {
+                    HStack {
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
+                }
+                
+                NavigationLink(destination: APICallsView()) {
+                    HStack {
+                        Image(systemName: "square")
+                        Text("API Calls")
+                    }
+                }
             }
         }
     }
