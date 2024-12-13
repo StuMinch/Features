@@ -3,8 +3,12 @@
 
 This iOS app is designed to be a vendor-neutral demo for practicing how to write automated tests using frameworks like Appium or native XCUITest. It currently provides functionalities to practice handling:
 
-- iOS System Alerts: Learn how to interact with different types of system alerts.
-- WebViews: Test your skills in automating interactions within embedded web content.
+- Text Input
+- iOS System Alerts
+- WebViews
+- Maps & Location Services
+- Generate Network Traffic
+- Apple Pay
 
 ### Contributing
 This project is intended to be a collaborative effort! We welcome contributions that add new functionalities and features for practicing mobile automation.  Here's how you can contribute:
