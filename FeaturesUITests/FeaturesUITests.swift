@@ -24,7 +24,7 @@ final class FeaturesUITests: XCTestCase {
     
     func testGenerateAlert() throws {
         let app = XCUIApplication()
-        app.tabBars["Tab Bar"].buttons["Alerts"].tap()
+        app.collectionViews.staticTexts["Alerts"].tap()
         app.buttons["Generate Alert"].tap()
         app.buttons["OK"].tap()
     }
@@ -50,7 +50,7 @@ final class FeaturesUITests: XCTestCase {
     
     func testAPICalls() throws {
         let app = XCUIApplication()
-        app.tabBars["Tab Bar"].buttons["API"].tap()
+        app.collectionViews.staticTexts["API Calls"].tap()
         app.buttons["Send 25 GET Requests"].tap()
         
         let successLabel = app.staticTexts["Success: 25 / 25"]
