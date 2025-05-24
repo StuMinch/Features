@@ -1,0 +1,91 @@
+name: Build and Upload IPA to LambdaTest
+
+on:
+  push:
+    branches:
+      - main # Trigger on pushes to the main branch of your iOS app repo
+  pull_request:
+    branches:
+      - main # Trigger on pull requests to the main branch
+
+jobs:
+  upload_ipa:
+    runs-on: macos-latest # macOS runner is required for iOS builds and archiving
+
+    steps:
+    - name: Checkout iOS App Repository
+      uses: actions/checkout@v4
+      with:
+        # This checks out the current repository (your iOS app)
+        path: ./ios-app
+
+    - name: Build and Archive iOS App
+      id: archive_ios_app # Give this step an ID to reference its outputs
+      working-directory: ./ios-app # Run this command from the iOS app's directory
+      run: |
+        # IMPORTANT: Replace 'YourApp.xcodeproj' or 'YourApp.xcworkspace'
+        # and 'YourAppScheme' with your actual project/workspace and scheme names.
+        # If you use a workspace, change -project to -workspace.
+
+        # Build and archive the app for generic iOS device (required for IPA export)
+        xcodebuild \
+          -project "Features.xcodeproj" \
+          -scheme "Features" \
+          -destination "generic/platform=iOS" \
+          -configuration Release \
+          archive \
+          -archivePath "./build/Features.xcarchive"
+
+        # Check if archive was created
+        if [ ! -d "./build/Features.xcarchive" ]; then
+          echo "Error: Xcode archive not found!"
+          exit 1
+        fi
+
+        echo "Archive created at: ./build/Features.xcarchive"
+
+    - name: Export IPA from Archive
+      id: export_ipa
+      working-directory: ./ios-app
+      run: |
+        # IMPORTANT: Ensure 'ExportOptions.plist' exists in the root of your iOS app repo.
+        # This file specifies how the IPA should be signed and exported.
+
+        # Export the IPA from the archive
+        xcodebuild \
+          -exportArchive \
+          -archivePath "./build/Features.xcarchive" \
+          -exportPath "./build/ipa" \
+          -exportOptionsPlist "./ExportOptions.plist" # Path to your ExportOptions.plist
+
+        # Find the path to the exported .ipa bundle
+        IPA_PATH="$(find ./build/ipa -name "*.ipa" -maxdepth 1)"
+
+        if [ -z "$IPA_PATH" ]; then
+          echo "Error: IPA bundle not found after export!"
+          exit 1
+        fi
+
+        echo "IPA exported to: $IPA_PATH"
+        # Set the IPA path as an output for subsequent steps
+        echo "ipa_path=$IPA_PATH" >> "$GITHUB_OUTPUT"
+
+    - name: Upload IPA to LambdaTest
+      working-directory: ./ios-app # Ensure we are in the context of the iOS app repo
+      env:
+        LT_USERNAME: ${{ secrets.LT_USERNAME }}
+        LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
+        IPA_FILE_PATH: ${{ steps.export_ipa.outputs.ipa_path }} # Get the IPA path from the previous step
+      run: |
+        if [ -z "$IPA_FILE_PATH" ]; then
+          echo "Error: IPA_FILE_PATH is not set. Skipping upload."
+          exit 1
+        fi
+
+        echo "Uploading $IPA_FILE_PATH to LambdaTest..."
+        curl -u "${LT_USERNAME}:${LT_ACCESS_KEY}" \
+             -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" \
+             -F "appFile=@${IPA_FILE_PATH}" \
+             -F "appName=Features_$(date +%Y%m%d%H%M%S)" \
+             -F "customID=Features-${{ github.sha }}" \
+             -H "Accept: application/json"
