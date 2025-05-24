@@ -13,6 +13,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
+                NavigationLink(destination: MapView()) {
+                    HStack {
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
+                }
+                .accessibilityIdentifier("Map")
+                
                 NavigationLink(destination: TextFieldView()) {
                     HStack {
                         Image(systemName: "pencil")
@@ -27,6 +35,7 @@ struct ContentView: View {
                         Text("Alerts")
                     }
                 }
+                .accessibilityIdentifier("Alerts")
                 
                 NavigationLink(destination: ApplePayButtonView()) {
                     HStack {
@@ -34,21 +43,16 @@ struct ContentView: View {
                         Text("Apple Pay")
                     }
                 }
+                .accessibilityIdentifier("Apple Pay")
                 
                 
-                NavigationLink(destination: WebView(url: URL(string: "https://apple.com")!)) {
+                NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
                     HStack {
                         Image(systemName: "link")
                         Text("Web")
                     }
                 }
-                
-                NavigationLink(destination: MapView()) {
-                    HStack {
-                        Image(systemName: "map")
-                        Text("Map")
-                    }
-                }
+                .accessibilityIdentifier("Web")
                 
                 NavigationLink(destination: APICallsView()) {
                     HStack {
@@ -56,6 +60,7 @@ struct ContentView: View {
                         Text("API Calls")
                     }
                 }
+                .accessibilityIdentifier("API Calls")
             }
         }
     }
