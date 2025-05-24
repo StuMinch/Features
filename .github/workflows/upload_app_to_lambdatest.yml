@@ -19,6 +19,10 @@ jobs:
         # This checks out the current repository (your iOS app)
         path: ./ios-app
 
+    - name: Clean Build Folder
+      working-directory: ./ios-app
+      run: xcodebuild clean -project "YourApp.xcodeproj" -scheme "YourAppScheme"
+
     - name: Build and Archive iOS App
       id: archive_ios_app # Give this step an ID to reference its outputs
       working-directory: ./ios-app # Run this command from the iOS app's directory
@@ -27,22 +31,24 @@ jobs:
         # and 'YourAppScheme' with your actual project/workspace and scheme names.
         # If you use a workspace, change -project to -workspace.
 
-        # Build and archive the app for generic iOS device (required for IPA export)
+        # Build and archive the app for generic iOS device, allowing provisioning updates
         xcodebuild \
-          -project "Features.xcodeproj" \
-          -scheme "Features" \
+          -project "YourApp.xcodeproj" \
+          -scheme "YourAppScheme" \
           -destination "generic/platform=iOS" \
           -configuration Release \
           archive \
-          -archivePath "./build/Features.xcarchive"
+          -archivePath "./build/YourApp.xcarchive" \
+          -allowProvisioningUpdates \
+          -UseModernBuildSystem=NO # Sometimes helps with signing issues
 
         # Check if archive was created
-        if [ ! -d "./build/Features.xcarchive" ]; then
+        if [ ! -d "./build/YourApp.xcarchive" ]; then
           echo "Error: Xcode archive not found!"
           exit 1
         fi
 
-        echo "Archive created at: ./build/Features.xcarchive"
+        echo "Archive created at: ./build/YourApp.xcarchive"
 
     - name: Export IPA from Archive
       id: export_ipa
@@ -54,9 +60,9 @@ jobs:
         # Export the IPA from the archive
         xcodebuild \
           -exportArchive \
-          -archivePath "./build/Features.xcarchive" \
+          -archivePath "./build/YourApp.xcarchive" \
           -exportPath "./build/ipa" \
-          -exportOptionsPlist "./ExportOptions.plist" # Path to your ExportOptions.plist
+          -exportOptionsPlist "./ExportOptions.plist"
 
         # Find the path to the exported .ipa bundle
         IPA_PATH="$(find ./build/ipa -name "*.ipa" -maxdepth 1)"
@@ -86,6 +92,6 @@ jobs:
         curl -u "${LT_USERNAME}:${LT_ACCESS_KEY}" \
              -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" \
              -F "appFile=@${IPA_FILE_PATH}" \
-             -F "appName=Features_$(date +%Y%m%d%H%M%S)" \
-             -F "customID=Features-${{ github.sha }}" \
+             -F "appName=YourApp_$(date +%Y%m%d%H%M%S)" \
+             -F "customID=YourApp-${{ github.sha }}" \
              -H "Accept: application/json"
