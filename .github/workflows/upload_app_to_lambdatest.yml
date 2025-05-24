@@ -23,12 +23,21 @@ jobs:
       working-directory: ./ios-app
       run: xcodebuild clean -project "Features.xcodeproj" -scheme "Features"
 
+    - name: Import Apple Code Signing Certificates and Provisioning Profiles
+      uses: apple-actions/import-codesign-certs@v2 # Use this action to install certs and profiles
+      with:
+        p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+        p12-password: ${{ secrets.P12_PASSWORD }}
+        mobileprovision-files-base64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+        # You can add more provisioning profiles by separating base64 strings with commas
+        # e.g., mobileprovision-files-base64: ${{ secrets.PROFILE_DEV }},${{ secrets.PROFILE_ADHOC }}
+
     - name: Build and Archive iOS App
       id: archive_ios_app # Give this step an ID to reference its outputs
       working-directory: ./ios-app # Run this command from the iOS app's directory
       run: |
-        # IMPORTANT: Replace 'YourApp.xcodeproj' or 'YourApp.xcworkspace'
-        # and 'YourAppScheme' with your actual project/workspace and scheme names.
+        # IMPORTANT: Replace 'Features.xcodeproj' or 'Features.xcworkspace'
+        # and 'Features' with your actual project/workspace and scheme names.
         # If you use a workspace, change -project to -workspace.
 
         # Build and archive the app for generic iOS device, allowing provisioning updates
