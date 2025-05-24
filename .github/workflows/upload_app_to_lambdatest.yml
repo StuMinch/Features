@@ -21,7 +21,7 @@ jobs:
 
     - name: Clean Build Folder
       working-directory: ./ios-app
-      run: xcodebuild clean -project "YourApp.xcodeproj" -scheme "YourAppScheme"
+      run: xcodebuild clean -project "Features.xcodeproj" -scheme "Features"
 
     - name: Build and Archive iOS App
       id: archive_ios_app # Give this step an ID to reference its outputs
