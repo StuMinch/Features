@@ -12,39 +12,54 @@ struct CameraView: View {
     @State private var scannedCode: String?
     
     var body: some View {
-        VStack {
-            if let code = scannedCode {
-                VStack(spacing: 20) {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 60))
-                        .foregroundColor(.green)
-                    Text("Scanned Code Found")
-                        .font(.title)
-                    
-                    Text(code)
-                        .font(.body)
-                        .padding()
-                        .background(Color.secondary.opacity(0.1))
-                        .cornerRadius(8)
-                        .textSelection(.enabled)
-                    
-                    Button("Scan Again") {
-                        self.scannedCode = nil
+        ZStack {
+            SauceColors.background.edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                if let code = scannedCode {
+                    VStack(spacing: 20) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 80))
+                            .foregroundColor(SauceColors.accent)
+                        Text("Scanned Code Found")
+                            .font(SauceTypography.headerFont)
+                            .foregroundColor(SauceColors.textPrimary)
+                        
+                        Text(code)
+                            .font(SauceTypography.bodyFont)
+                            .padding()
+                            .background(SauceColors.secondaryBackground)
+                            .foregroundColor(SauceColors.textPrimary)
+                            .cornerRadius(8)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(SauceColors.accent, lineWidth: 1)
+                            )
+                            .textSelection(.enabled)
+                        
+                        Button("Scan Again") {
+                            self.scannedCode = nil
+                        }
+                        .buttonStyle(SauceButtonStyle())
                     }
-                    .buttonStyle(.borderedProminent)
-                }
-            } else {
-                ZStack(alignment: .bottom) {
-                    QRScannerView(scannedCode: $scannedCode)
-                        .edgesIgnoringSafeArea(.all)
-                    
-                    Text("Point camera at a QR code")
-                        .font(.caption)
-                        .padding()
-                        .background(Color.black.opacity(0.7))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .padding(.bottom, 50)
+                    .padding()
+                } else {
+                    ZStack(alignment: .bottom) {
+                        QRScannerView(scannedCode: $scannedCode)
+                            .edgesIgnoringSafeArea(.all)
+                        
+                        Text("Point camera at a QR code")
+                            .font(SauceTypography.captionFont)
+                            .padding()
+                            .background(Color.black.opacity(0.7))
+                            .foregroundColor(SauceColors.accent)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(SauceColors.accent, lineWidth: 1)
+                            )
+                            .padding(.bottom, 50)
+                    }
                 }
             }
         }

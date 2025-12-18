@@ -15,41 +15,57 @@ struct MapView: View {
     @FocusState private var isSearchFocused: Bool
 
     var body: some View {
-        VStack {
-            HStack {
-                TextField("Enter Location", text: $searchText)
-                    .textFieldStyle(.roundedBorder)
-                    .focused($isSearchFocused)
+        ZStack {
+            SauceColors.background.edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                HStack {
+                    TextField("Enter Location", text: $searchText)
+                        .textFieldStyle(.plain)
+                        .padding()
+                        .background(SauceColors.secondaryBackground)
+                        .foregroundColor(SauceColors.textPrimary)
+                        .cornerRadius(8)
+                        .focused($isSearchFocused)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(SauceColors.accent.opacity(0.5), lineWidth: 1)
+                        )
 
-                Button {
-                    Task {
-                        await searchLocation()
+                    Button {
+                        Task {
+                            await searchLocation()
+                        }
+                        isSearchFocused = false
+                    } label: {
+                        Image(systemName: "magnifyingglass.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(SauceColors.accent)
                     }
-                    isSearchFocused = false // Dismiss keyboard after search
-                } label: {
-                    Image(systemName: "magnifyingglass.circle.fill")
-                        .font(.title2)
+                    .padding(.leading, 8)
                 }
-                .padding(.leading, 8)
-            }
-            .padding()
+                .padding()
 
-            Map(position: $cameraPosition) {
-                UserAnnotation()
+                Map(position: $cameraPosition) {
+                    UserAnnotation()
 
-                if let searchedLocation = searchedLocation {
-                    Marker("Searched Location", coordinate: searchedLocation)
+                    if let searchedLocation = searchedLocation {
+                        Marker("Searched Location", coordinate: searchedLocation)
+                    }
                 }
-            }
-            .mapControls {
-                MapUserLocationButton()
-            }
-            .onAppear {
-                manager.requestWhenInUseAuthorization()
-            }
+                .mapControls {
+                    MapUserLocationButton()
+                }
+                .onAppear {
+                    manager.requestWhenInUseAuthorization()
+                }
+                .cornerRadius(12)
+                .padding([.horizontal, .bottom])
 
-            Spacer()
+                Spacer()
+            }
         }
+        .navigationTitle("Geolocation")
     }
 
     func searchLocation() async {
@@ -77,7 +93,6 @@ struct MapView: View {
             }
         } catch {
             print("Error geocoding: \(error)")
-            // Handle error appropriately (e.g., show an alert)
         }
     }
 }
