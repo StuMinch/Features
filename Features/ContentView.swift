@@ -9,75 +9,90 @@ import SwiftUI
 import CoreLocation
 
 struct ContentView: View {
-    
+    init() {
+        // Customize Navigation Bar Appearance for Dark Mode
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont.monospacedSystemFont(ofSize: 12, weight: .bold)]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont.monospacedSystemFont(ofSize: 12, weight: .bold)]
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        
+        // TableView background for List
+        UITableView.appearance().backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)
+    }
+
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: BiometricsView()) {
-                    HStack {
-                        Image(systemName: "faceid")
-                        Text("Biometrics")
+                Group {
+                    NavigationLink(destination: MapView()) {
+                        FeatureRow(icon: "location.fill", title: "Geolocation")
                     }
-                }
-                .accessibilityIdentifier("Biometrics")
-                
-                NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
-                    HStack {
-                        Image(systemName: "wifi.slash")
-                        Text("Network Throttling")
+                    .accessibilityIdentifier("Geolocation")
+                    
+                    NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
+                        FeatureRow(icon: "wifi.exclamationmark", title: "Network Throttling")
                     }
-                }
-                .accessibilityIdentifier("Network Throttling")
-                
-                NavigationLink(destination: APICallsView()) {
-                    HStack {
-                        Image(systemName: "wifi.exclamationmark")
-                        Text("Network Capture")
+                    .accessibilityIdentifier("Network Throttling")
+                    
+                    NavigationLink(destination: APICallsView()) {
+                        FeatureRow(icon: "square.text.square", title: "API Calls")
                     }
-                }
-                .accessibilityIdentifier("Network Capture")
-                
-                NavigationLink(destination: MapView()) {
-                    HStack {
-                        Image(systemName: "location.fill")
-                        Text("Geolocation")
+                    .accessibilityIdentifier("API Calls")
+                    
+                    NavigationLink(destination: CameraView()) {
+                        FeatureRow(icon: "qrcode.viewfinder", title: "QR Code Scanner")
                     }
-                }
-                .accessibilityIdentifier("Geolocation")
-                
-                NavigationLink(destination: CameraView()) {
-                    HStack {
-                        Image(systemName: "qrcode.viewfinder")
-                        Text("QR Code Scanner")
+                    .accessibilityIdentifier("QR Code Scanner")
+                    
+                    NavigationLink(destination: BiometricsView()) {
+                        FeatureRow(icon: "faceid", title: "Biometrics")
                     }
-                }
-                .accessibilityIdentifier("QR Code Scanner")
-                
-                NavigationLink(destination: ApplePayButtonView()) {
-                    HStack {
-                        Image(systemName: "creditcard")
-                        Text("Apple Pay")
+                    .accessibilityIdentifier("Biometrics")
+                    
+                    NavigationLink(destination: ApplePayButtonView()) {
+                        FeatureRow(icon: "creditcard", title: "Apple Pay")
                     }
-                }
-                .accessibilityIdentifier("Apple Pay")
-                
-                NavigationLink(destination: TextFieldView()) {
-                    HStack {
-                        Image(systemName: "pencil")
-                        Text("Text")
+                    .accessibilityIdentifier("Apple Pay")
+                    
+                    NavigationLink(destination: TextFieldView()) {
+                        FeatureRow(icon: "pencil", title: "Text")
                     }
-                }
-                .accessibilityIdentifier("Text")
-                
-                NavigationLink(destination: AlertView()) {
-                    HStack {
-                        Image(systemName: "exclamationmark")
-                        Text("Alerts")
+                    .accessibilityIdentifier("Text")
+                    
+                    NavigationLink(destination: AlertView()) {
+                        FeatureRow(icon: "exclamationmark.triangle", title: "Alerts")
                     }
+                    .accessibilityIdentifier("Alerts")
                 }
-                .accessibilityIdentifier("Alerts")
-                
+                .listRowBackground(SauceColors.secondaryBackground)
+                .listRowSeparatorTint(SauceColors.accent.opacity(0.3))
             }
+            .listStyle(.plain)
+            .background(SauceColors.background)
+            .navigationTitle("Features")
+        }
+        .preferredColorScheme(.dark)
+        .accentColor(SauceColors.accent)
+    }
+}
+
+struct FeatureRow: View {
+    let icon: String
+    let title: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(SauceColors.accent)
+                .frame(width: 30)
+            Text(title)
+                .font(SauceTypography.headerFont.weight(.medium))
+                .foregroundColor(SauceColors.textPrimary)
         }
     }
 }

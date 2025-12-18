@@ -13,43 +13,59 @@ struct BiometricsView: View {
     @State private var authError: String? = nil
 
     var body: some View {
-        VStack(spacing: 20) {
-            if isUnlocked {
-                Image(systemName: "lock.open.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(.green)
-                Text("Authenticated Successfully!")
-                    .font(.title)
-                    .foregroundColor(.green)
-                
-                Button("Lock") {
-                    withAnimation {
-                        isUnlocked = false
-                    }
-                }
-                .buttonStyle(.bordered)
-            } else {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(.red)
-                Text("Locked")
-                    .font(.title)
-                    .foregroundColor(.red)
-                
-                Button(action: authenticate) {
-                    Label("Authenticate", systemImage: "faceid")
-                }
-                .buttonStyle(.borderedProminent)
-            }
+        ZStack {
+            SauceColors.background.edgesIgnoringSafeArea(.all)
             
-            if let error = authError {
-                Text(error)
-                    .foregroundColor(.red)
-                    .padding()
-                    .multilineTextAlignment(.center)
+            VStack(spacing: 30) {
+                if isUnlocked {
+                    VStack(spacing: 20) {
+                        Image(systemName: "lock.open.fill")
+                            .font(.system(size: 80))
+                            .foregroundColor(SauceColors.accent)
+                        Text("Authenticated")
+                            .font(SauceTypography.headerFont)
+                            .foregroundColor(SauceColors.accent)
+                        
+                        Text("Access Granted")
+                            .font(SauceTypography.bodyFont)
+                            .foregroundColor(SauceColors.textPrimary)
+                    }
+                    .transition(.scale)
+                    
+                    Button("Lock") {
+                        withAnimation {
+                            isUnlocked = false
+                        }
+                    }
+                    .buttonStyle(SauceButtonStyle())
+                } else {
+                    VStack(spacing: 20) {
+                        Image(systemName: "lock.fill")
+                            .font(.system(size: 80))
+                            .foregroundColor(.red)
+                        Text("Locked")
+                            .font(SauceTypography.headerFont)
+                            .foregroundColor(.red)
+                    }
+                    
+                    Button(action: authenticate) {
+                        Label("Authenticate", systemImage: "faceid")
+                    }
+                    .buttonStyle(SauceButtonStyle())
+                }
+                
+                if let error = authError {
+                    Text(error)
+                        .font(SauceTypography.captionFont)
+                        .foregroundColor(.red)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .background(Color.red.opacity(0.1))
+                        .cornerRadius(8)
+                }
             }
+            .padding()
         }
-        .padding()
         .navigationTitle("Biometrics")
     }
 
@@ -63,8 +79,10 @@ struct BiometricsView: View {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
                 DispatchQueue.main.async {
                     if success {
-                        self.isUnlocked = true
-                        self.authError = nil
+                        withAnimation {
+                            self.isUnlocked = true
+                            self.authError = nil
+                        }
                     } else {
                         self.isUnlocked = false
                         self.authError = authenticationError?.localizedDescription ?? "Authentication failed"
@@ -72,7 +90,6 @@ struct BiometricsView: View {
                 }
             }
         } else {
-            // Fallback for simulator or no biometrics
             self.authError = "Biometrics not available on this device."
         }
     }
