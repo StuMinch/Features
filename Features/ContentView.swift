@@ -13,13 +13,53 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: MapView()) {
+                NavigationLink(destination: BiometricsView()) {
                     HStack {
-                        Image(systemName: "map")
-                        Text("Map")
+                        Image(systemName: "faceid")
+                        Text("Biometrics")
                     }
                 }
-                .accessibilityIdentifier("Map")
+                .accessibilityIdentifier("Biometrics")
+                
+                NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
+                    HStack {
+                        Image(systemName: "wifi.slash")
+                        Text("Network Throttling")
+                    }
+                }
+                .accessibilityIdentifier("Network Throttling")
+                
+                NavigationLink(destination: APICallsView()) {
+                    HStack {
+                        Image(systemName: "wifi.exclamationmark")
+                        Text("Network Capture")
+                    }
+                }
+                .accessibilityIdentifier("Network Capture")
+                
+                NavigationLink(destination: MapView()) {
+                    HStack {
+                        Image(systemName: "location.fill")
+                        Text("Geolocation")
+                    }
+                }
+                .accessibilityIdentifier("Geolocation")
+                
+                NavigationLink(destination: CameraView()) {
+                    HStack {
+                        Image(systemName: "qrcode.viewfinder")
+                        Text("QR Code Scanner")
+                    }
+                }
+                .accessibilityIdentifier("QR Code Scanner")
+                
+                NavigationLink(destination: ApplePayButtonView()) {
+                    HStack {
+                        Image(systemName: "creditcard")
+                        Text("Apple Pay")
+                    }
+                }
+                .accessibilityIdentifier("Apple Pay")
                 
                 NavigationLink(destination: TextFieldView()) {
                     HStack {
@@ -37,30 +77,6 @@ struct ContentView: View {
                 }
                 .accessibilityIdentifier("Alerts")
                 
-                NavigationLink(destination: ApplePayButtonView()) {
-                    HStack {
-                        Image(systemName: "creditcard")
-                        Text("Apple Pay")
-                    }
-                }
-                .accessibilityIdentifier("Apple Pay")
-                
-                
-                NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
-                    HStack {
-                        Image(systemName: "link")
-                        Text("Web")
-                    }
-                }
-                .accessibilityIdentifier("Web")
-                
-                NavigationLink(destination: APICallsView()) {
-                    HStack {
-                        Image(systemName: "square")
-                        Text("API Calls")
-                    }
-                }
-                .accessibilityIdentifier("API Calls")
             }
         }
     }
