@@ -1,0 +1,38 @@
+name: Run Features WebdriverIO Tests on Sauce Labs
+
+on:
+  push:
+    branches:
+      - '**'
+
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Clone tests repo
+        run: git clone https://github.com/StuMinch/features-wdio-tests.git
+      
+      - name: Install deps
+        run: | 
+          cd features-wdio-tests
+          npm install
+
+      - name: Run tests
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        run: npx wdio run wdio.conf.js
+
