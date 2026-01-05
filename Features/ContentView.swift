@@ -35,14 +35,14 @@ struct ContentView: View {
                     .accessibilityIdentifier("Geolocation")
                     
                     NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
-                        FeatureRow(icon: "wifi.exclamationmark", title: "Network Throttling")
+                        FeatureRow(icon: "wifi.slash", title: "Network Throttling")
                     }
                     .accessibilityIdentifier("Network Throttling")
                     
                     NavigationLink(destination: APICallsView()) {
-                        FeatureRow(icon: "square.text.square", title: "API Calls")
+                        FeatureRow(icon: "wifi.exclamationmark", title: "Network Capture")
                     }
-                    .accessibilityIdentifier("API Calls")
+                    .accessibilityIdentifier("Network Capture")
                     
                     NavigationLink(destination: CameraView()) {
                         FeatureRow(icon: "qrcode.viewfinder", title: "QR Code Scanner")

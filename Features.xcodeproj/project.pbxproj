@@ -468,13 +468,14 @@
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Features;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Prompt for location";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Prompt for camera access in order to scan QR Codes.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to your location, so that the map can automatically update based on your GPS coordinates.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -484,7 +485,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.5;
+				MARKETING_VERSION = 6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -502,13 +503,14 @@
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Features;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Prompt for location";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Prompt for camera access in order to scan QR Codes.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to your location, so that the map can automatically update based on your GPS coordinates.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -518,7 +520,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.5;
+				MARKETING_VERSION = 6.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

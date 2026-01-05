@@ -50,7 +50,7 @@ final class FeaturesUITests: XCTestCase {
     
     func testAPICalls() throws {
         let app = XCUIApplication()
-        app.collectionViews.staticTexts["API Calls"].tap()
+        app.collectionViews.staticTexts["Network Capture"].tap()
         app.buttons["Send 25 GET Requests"].tap()
         
         let successLabel = app.staticTexts["Success: 25 / 25"]
