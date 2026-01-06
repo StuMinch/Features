@@ -57,7 +57,7 @@ jobs:
           # Find the built .app or .ipa file
           cd build/Build/Products/Debug-iphoneos/
           mkdir Payload
-          cp -R *.app Payload/Features.app
+          cp -R Features.app Payload/*
           zip -r Payload.zip Payload
           mv Payload.zip Features.ipa
           # Upload to Sauce Labs Storage
