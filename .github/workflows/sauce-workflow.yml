@@ -1,0 +1,69 @@
+name: iOS Workflow on Sauce Labs
+
+on:
+  push:
+    branches:
+      - '**'
+
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Build, Push and Test on Sauce Labs
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo $default | cat >default
+          echo Using default scheme: $default
+      - name: Build for Generic iOS Device
+          env:
+          scheme: ${{ 'default' }}
+        run: |
+          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
+    
+          if [ "$(ls -A | grep -i \.xcworkspace\$)" ]; then 
+            filetype_parameter="workspace"
+            file_to_build="$(ls -A | grep -i \.xcworkspace\$ | head -1)"
+          else 
+            filetype_parameter="project"
+            file_to_build="$(ls -A | grep -i \.xcodeproj\$ | head -1)"
+          fi
+
+          xcodebuild build-for-testing \
+            -scheme "$scheme" \
+            -"$filetype_parameter" "$file_to_build" \
+            -destination "generic/platform=iOS" \
+            -sdk iphoneos \
+            -derivedDataPath build
+      - name: Upload app to Sauce Labs
+        env:
+          scheme: ${{ 'default' }}
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        run: |
+          # Find the built .app or .ipa file
+          cd build/Build/Products/Debug-iphoneos/
+          zip -r Features.zip *.app
+          # Upload to Sauce Labs Storage
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
+            --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+            --form 'payload=@"Features.zip"' \
+            --form 'name="Features.zip"'
+      - name: Clone tests repo
+        run: git clone https://github.com/StuMinch/features-wdio-tests.git
+      - name: Run tests
+        working-directory: ./features-wdio-tests
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        run: |
+          npm clean-install
+          ./node_modules/.bin/wdio run wdio.conf.js
