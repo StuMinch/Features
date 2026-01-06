@@ -56,7 +56,7 @@ jobs:
         run: |
           # Find the built .app or .ipa file
           cd build/Build/Products/Debug-iphoneos/
-          zip -r Features.zip *.app
+          zip -r Features.zip Features.app
           # Upload to Sauce Labs Storage
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
