@@ -31,6 +31,5 @@ jobs:
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         run: | 
           cd features-wdio-tests
-          npm install -y
           npx wdio run wdio.conf.js
 
