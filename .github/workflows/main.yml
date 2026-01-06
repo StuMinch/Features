@@ -31,7 +31,6 @@ jobs:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         run: |
-          echo $SAUCE_USERNAME
           npm clean-install
           ./node_modules/.bin/wdio run wdio.conf.js
 
