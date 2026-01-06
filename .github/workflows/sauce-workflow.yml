@@ -59,22 +59,22 @@ jobs:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         run: |
-          # Find the built .app or .ipa file
           cd build/Build/Products/Debug-iphoneos/
           mkdir Payload
           cp -r Features.app Payload/
           zip -r Features-${{ github.run_number }}.ipa Payload
-          export APP_VERSION=Features-${{ github.run_number }}.ipa
+          
           # Upload to Sauce Labs Storage
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-            --form 'payload=@"$APP_VERSION"' \
-            --form 'name="$APP_VERSION"'
+            --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
+            --form 'name="Features-${{ github.run_number }}.ipa"'
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
         working-directory: ./features-wdio-tests
         run: |
+          export APP_VERSION=Features-${{ github.run_number }}.ipa
           echo APP_VERSION
           echo SAUCE_USERNAME
           npm clean-install
