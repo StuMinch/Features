@@ -468,7 +468,7 @@
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
@@ -485,13 +485,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.8;
+				MARKETING_VERSION = 6.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -503,7 +504,7 @@
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
@@ -520,13 +521,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.8;
+				MARKETING_VERSION = 6.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
