@@ -28,7 +28,7 @@ jobs:
       - name: Install deps
         run: | 
           cd features-wdio-tests
-          npm install
+          npm install -y
 
       - name: Run tests
         env:
