@@ -78,4 +78,4 @@ jobs:
           echo APP_VERSION
           echo SAUCE_USERNAME
           npm clean-install
-          ./node_modules/.bin/wdio run wdio.conf.js
+          ./node_modules/.bin/wdio run gha.conf.js
