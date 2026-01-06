@@ -26,10 +26,11 @@ jobs:
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
 
       - name: Run tests
+        working-directory: ./features-wdio-tests
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-        run: | 
-          cd features-wdio-tests
-          npx wdio run wdio.conf.js
+        run: |
+          npm ci
+          ./node_modules/.bin/wdio run wdio.conf.js
 
