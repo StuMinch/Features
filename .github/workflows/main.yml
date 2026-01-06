@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: '21'
+          node-version: '22'
 
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
