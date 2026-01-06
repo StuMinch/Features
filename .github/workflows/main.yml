@@ -24,15 +24,13 @@ jobs:
 
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
-      
-      - name: Install deps
-        run: | 
-          cd features-wdio-tests
-          npm install -y
 
       - name: Run tests
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-        run: npx wdio run wdio.conf.js
+        run: | 
+          cd features-wdio-tests
+          npm install -y
+          npx wdio run wdio.conf.js
 
