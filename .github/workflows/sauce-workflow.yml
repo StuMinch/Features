@@ -42,7 +42,12 @@ jobs:
             -"$filetype_parameter" "$file_to_build" \
             -destination "generic/platform=iOS" \
             -sdk iphoneos \
-            -derivedDataPath build
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES
       - name: Upload app to Sauce Labs
         env:
           scheme: ${{ 'default' }}
