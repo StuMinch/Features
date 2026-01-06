@@ -24,7 +24,7 @@ jobs:
           echo $default | cat >default
           echo Using default scheme: $default
       - name: Build for Generic iOS Device
-          env:
+        env:
           scheme: ${{ 'default' }}
         run: |
           if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
