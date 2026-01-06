@@ -23,6 +23,11 @@ jobs:
           default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
           echo $default | cat >default
           echo Using default scheme: $default
+      - name: Increment Build Number
+        run: |
+          # Ensure we are in the directory with the .xcodeproj
+          # Set the build number (Bundle Version) to the GitHub Run Number
+          xcrun agvtool new-version -all ${{ github.run_number }}
       - name: Build for Generic iOS Device
         env:
           scheme: ${{ 'default' }}
