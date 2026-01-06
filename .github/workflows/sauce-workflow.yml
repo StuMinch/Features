@@ -57,11 +57,12 @@ jobs:
           # Find the built .app or .ipa file
           cd build/Build/Products/Debug-iphoneos/
           zip -r Features.zip Features.app
+          mv Features.zip Features.ipa
           # Upload to Sauce Labs Storage
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-            --form 'payload=@"Features.zip"' \
-            --form 'name="Features.zip"'
+            --form 'payload=@"Features.ipa"' \
+            --form 'name="Features.ipa"'
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
