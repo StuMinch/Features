@@ -72,10 +72,13 @@ jobs:
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         working-directory: ./features-wdio-tests
         run: |
           export APP_VERSION=Features-${{ github.run_number }}.ipa
-          echo APP_VERSION
-          echo SAUCE_USERNAME
+          echo $APP_VERSION
+          echo $SAUCE_USERNAME
           npm clean-install
           ./node_modules/.bin/wdio run gha.conf.js
