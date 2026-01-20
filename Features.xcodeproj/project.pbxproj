@@ -474,6 +474,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Features;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Prompt for camera access in order to scan QR Codes.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to your location, so that the map can automatically update based on your GPS coordinates.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -485,7 +486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.9;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -510,6 +511,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Features;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Prompt for camera access in order to scan QR Codes.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to your location, so that the map can automatically update based on your GPS coordinates.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -521,7 +523,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.9;
+				MARKETING_VERSION = 7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
