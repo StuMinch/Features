@@ -46,12 +46,12 @@ jobs:
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 16,OS=26.1" \
+            -destination "platform=iOS Simulator,name=iPhone 17" \
             -derivedDataPath build-sim
 
       - name: Boot iOS Simulator
         run: |
-          UDID=$(xcrun simctl list devices | grep "iPhone 15 (" | grep -v unavailable | awk -F '[()]' '{print $2}')
+          UDID=$(xcrun simctl list devices | grep "iPhone 17 (" | grep -v unavailable | awk -F '[()]' '{print $2}')
           echo "Using simulator UDID: $UDID"
           xcrun simctl boot "$UDID" || true
           xcrun simctl bootstatus "$UDID" -b
