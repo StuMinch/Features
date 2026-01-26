@@ -17,6 +17,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # ------------------------------------------------------------
+      # 1. Select the correct Xcode version (the one with simulators)
+      # ------------------------------------------------------------
+      - name: Select Xcode version with simulators
+        run: |
+          sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+
+      # ------------------------------------------------------------
+      # 2. Preload simulators so Xcode can see them
+      # ------------------------------------------------------------
+      - name: Preload simulators
+        run: |
+          echo "Listing available simulators..."
+          xcrun simctl list devices
+
+      # ------------------------------------------------------------
+      # 3. Determine default scheme
+      # ------------------------------------------------------------
       - name: Set Default Scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
@@ -24,10 +43,42 @@ jobs:
           echo $default > default
           echo Using default scheme: $default
 
+      # ------------------------------------------------------------
+      # 4. Increment build number
+      # ------------------------------------------------------------
       - name: Increment Build Number
         run: |
           xcrun agvtool new-version -all ${{ github.run_number }}
 
+      # ------------------------------------------------------------
+      # 5. Select a real simulator UDID (safe, single device)
+      # ------------------------------------------------------------
+      - name: Select simulator
+        id: sim
+        run: |
+          UDID=$(xcrun simctl list devices available | grep -E "iPhone (16|17)" | head -1 | awk -F '[()]' '{print $2}')
+          echo "Selected UDID: $UDID"
+
+          if [ -z "$UDID" ]; then
+            echo "No available iPhone simulator found"
+            exit 1
+          fi
+
+          echo "udid=$UDID" >> $GITHUB_OUTPUT
+
+      # ------------------------------------------------------------
+      # 6. Boot the simulator
+      # ------------------------------------------------------------
+      - name: Boot simulator
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          echo "Booting simulator $UDID"
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+
+      # ------------------------------------------------------------
+      # 7. Build the app for iOS Simulator
+      # ------------------------------------------------------------
       - name: Build for iOS Simulator
         env:
           scheme: ${{ 'default' }}
@@ -42,39 +93,49 @@ jobs:
             file_to_build="$(ls -A | grep -i \.xcodeproj$ | head -1)"
           fi
 
+          UDID="${{ steps.sim.outputs.udid }}"
+
           xcodebuild build-for-testing \
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 17" \
+            -destination "id=$UDID" \
             -derivedDataPath build-sim
 
-      - name: Boot iOS Simulator
-        run: |
-          UDID=$(xcrun simctl list devices | grep "iPhone 17 (" | grep -v unavailable | awk -F '[()]' '{print $2}')
-          echo "Using simulator UDID: $UDID"
-          xcrun simctl boot "$UDID" || true
-          xcrun simctl bootstatus "$UDID" -b
-
+      # ------------------------------------------------------------
+      # 8. Install Node + Appium + XCUITest driver
+      # ------------------------------------------------------------
       - name: Install Node + Appium
         run: |
           brew install node
           npm install -g appium
           npm install -g appium-xcuitest-driver
 
+      # ------------------------------------------------------------
+      # 9. Start Appium server
+      # ------------------------------------------------------------
       - name: Start Appium Server
         run: |
           appium --base-path /wd/hub --log-level info &
           sleep 5
 
+      # ------------------------------------------------------------
+      # 10. Clone tests repo
+      # ------------------------------------------------------------
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
 
+      # ------------------------------------------------------------
+      # 11. Install test dependencies
+      # ------------------------------------------------------------
       - name: Install test dependencies
         working-directory: ./features-wdio-tests
         run: npm clean-install
 
-      - name: Run tests on local Appium + Simulator
+      # ------------------------------------------------------------
+      # 12. Run tests on local Appium + Simulator
+      # ------------------------------------------------------------
+      - name: Run tests on local simulator
         working-directory: ./features-wdio-tests
         env:
           APP_PATH: ${{ github.workspace }}/build-sim/Build/Products/Debug-iphonesimulator/Features.app
