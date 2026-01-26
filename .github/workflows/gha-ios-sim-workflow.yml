@@ -46,7 +46,7 @@ jobs:
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 15" \
+            -destination "platform=iOS Simulator,name=iPhone 16,OS=26.1" \
             -derivedDataPath build-sim
 
       - name: Boot iOS Simulator
