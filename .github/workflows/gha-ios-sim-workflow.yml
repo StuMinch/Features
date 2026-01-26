@@ -1,0 +1,84 @@
+name: iOS Local Simulator Workflow
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  local-ios:
+    name: Build and Test on Local iOS Simulator
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo $default > default
+          echo Using default scheme: $default
+
+      - name: Increment Build Number
+        run: |
+          xcrun agvtool new-version -all ${{ github.run_number }}
+
+      - name: Build for iOS Simulator
+        env:
+          scheme: ${{ 'default' }}
+        run: |
+          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
+
+          if [ "$(ls -A | grep -i \.xcworkspace$)" ]; then 
+            filetype_parameter="workspace"
+            file_to_build="$(ls -A | grep -i \.xcworkspace$ | head -1)"
+          else 
+            filetype_parameter="project"
+            file_to_build="$(ls -A | grep -i \.xcodeproj$ | head -1)"
+          fi
+
+          xcodebuild build-for-testing \
+            -scheme "$scheme" \
+            -"$filetype_parameter" "$file_to_build" \
+            -sdk iphonesimulator \
+            -destination "platform=iOS Simulator,name=iPhone 15" \
+            -derivedDataPath build-sim
+
+      - name: Boot iOS Simulator
+        run: |
+          UDID=$(xcrun simctl list devices | grep "iPhone 15 (" | grep -v unavailable | awk -F '[()]' '{print $2}')
+          echo "Using simulator UDID: $UDID"
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+
+      - name: Install Node + Appium
+        run: |
+          brew install node
+          npm install -g appium
+          npm install -g appium-xcuitest-driver
+
+      - name: Start Appium Server
+        run: |
+          appium --base-path /wd/hub --log-level info &
+          sleep 5
+
+      - name: Clone tests repo
+        run: git clone https://github.com/StuMinch/features-wdio-tests.git
+
+      - name: Install test dependencies
+        working-directory: ./features-wdio-tests
+        run: npm clean-install
+
+      - name: Run tests on local Appium + Simulator
+        working-directory: ./features-wdio-tests
+        env:
+          APP_PATH: ${{ github.workspace }}/build-sim/Build/Products/Debug-iphonesimulator/Features.app
+        run: |
+          echo "APP_PATH=$APP_PATH"
+          export APP_PATH
+          ./node_modules/.bin/wdio run gha.local.conf.js
