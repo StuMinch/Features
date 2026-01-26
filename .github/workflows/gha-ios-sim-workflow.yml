@@ -10,7 +10,7 @@ on:
 
 jobs:
   local-ios:
-    name: Build and Test on GitHub iOS Simulator
+    name: Build and Test on Local iOS Simulator
     runs-on: macos-latest
 
     steps:
@@ -51,20 +51,28 @@ jobs:
           xcrun agvtool new-version -all ${{ github.run_number }}
 
       # ------------------------------------------------------------
-      # 5. Select a real simulator UDID (safe, single device)
+      # 5. Select ONLY an iPhone 17 simulator
       # ------------------------------------------------------------
       - name: Select simulator
         id: sim
         run: |
-          UDID=$(xcrun simctl list devices available | grep -E "iPhone (16|17)" | head -1 | awk -F '[()]' '{print $2}')
-          echo "Selected UDID: $UDID"
+          echo "Looking for iPhone 17 simulators..."
 
-          if [ -z "$UDID" ]; then
-            echo "No available iPhone simulator found"
+          DEVICE_INFO=$(xcrun simctl list devices available | grep "iPhone 17 (" | head -1)
+
+          if [ -z "$DEVICE_INFO" ]; then
+            echo "No iPhone 17 simulator found on this runner"
             exit 1
           fi
 
+          UDID=$(echo "$DEVICE_INFO" | awk -F '[()]' '{print $2}')
+          NAME=$(echo "$DEVICE_INFO" | awk -F '[()]' '{print $1}' | sed 's/^[[:space:]]*//')
+
+          echo "Selected device: $NAME"
+          echo "Selected UDID: $UDID"
+
           echo "udid=$UDID" >> $GITHUB_OUTPUT
+          echo "name=$NAME" >> $GITHUB_OUTPUT
 
       # ------------------------------------------------------------
       # 6. Boot the simulator
@@ -133,13 +141,16 @@ jobs:
         run: npm clean-install
 
       # ------------------------------------------------------------
-      # 12. Run tests on local Appium + Simulator
+      # 12. Run tests on local simulator
       # ------------------------------------------------------------
       - name: Run tests on local simulator
         working-directory: ./features-wdio-tests
         env:
           APP_PATH: ${{ github.workspace }}/build-sim/Build/Products/Debug-iphonesimulator/Features.app
+          DEVICE_UDID: ${{ steps.sim.outputs.udid }}
+          DEVICE_NAME: ${{ steps.sim.outputs.name }}
         run: |
           echo "APP_PATH=$APP_PATH"
-          export APP_PATH
+          echo "DEVICE_UDID=$DEVICE_UDID"
+          echo "DEVICE_NAME=$DEVICE_NAME"
           ./node_modules/.bin/wdio run gha.local.conf.js
