@@ -141,7 +141,25 @@ jobs:
         run: npm clean-install
 
       # ------------------------------------------------------------
-      # 12. Run tests on local simulator
+      # 12. Build and Install WebDriverAgent
+      # ------------------------------------------------------------
+      - name: Pre-build WebDriverAgent
+        run: |
+          # Locate the WDA project in your node_modules
+          WDA_PATH=$(find ./features-wdio-tests/node_modules -name "WebDriverAgent.xcodeproj" | head -n 1)
+          WDA_DIR=$(dirname "$WDA_PATH")
+          
+          echo "Building WDA at $WDA_DIR"
+          
+          xcodebuild build-for-testing \
+            -project "$WDA_PATH" \
+            -scheme WebDriverAgentRunner \
+            -destination "platform=iOS Simulator,name=${{ env.DEVICE_NAME }}" \
+            -derivedDataPath "$WDA_DIR/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO | xcpretty
+
+      # ------------------------------------------------------------
+      # 13. Run tests on local simulator
       # ------------------------------------------------------------
       - name: Run tests on local simulator
         working-directory: ./features-wdio-tests
