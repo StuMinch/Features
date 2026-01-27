@@ -56,12 +56,12 @@ jobs:
       - name: Select simulator
         id: sim
         run: |
-          echo "Looking for iPhone 17 simulators..."
+          echo "Looking for iPhone 16 Pro simulators..."
 
-          DEVICE_INFO=$(xcrun simctl list devices available | grep "iPhone 17 (" | head -1)
+          DEVICE_INFO=$(xcrun simctl list devices available | grep "iPhone 16 Pro (" | head -1)
 
           if [ -z "$DEVICE_INFO" ]; then
-            echo "No iPhone 17 simulator found on this runner"
+            echo "No iPhone 16 Pro simulator found on this runner"
             exit 1
           fi
 
