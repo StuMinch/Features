@@ -124,7 +124,7 @@ jobs:
       # ------------------------------------------------------------
       - name: Start Appium Server
         run: |
-          appium --base-path /wd/hub --log-level info &
+          appium --log-level info &
           sleep 5
 
       # ------------------------------------------------------------
