@@ -145,17 +145,17 @@ jobs:
       # ------------------------------------------------------------
       - name: Pre-build WebDriverAgent
         run: |
-          # Locate the WDA project in your node_modules
-          WDA_PATH=$(find ./features-wdio-tests/node_modules -name "WebDriverAgent.xcodeproj" | head -n 1)
-          WDA_DIR=$(dirname "$WDA_PATH")
+          # Define a stable path for WDA
+          WDA_PROJECT="./features-wdio-tests/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj"
+          DERIVED_DATA_PATH="$GITHUB_WORKSPACE/wda_derived_data"
           
-          echo "Building WDA at $WDA_DIR"
+          echo "Building WDA into $DERIVED_DATA_PATH"
           
           xcodebuild build-for-testing \
-            -project "$WDA_PATH" \
+            -project "$WDA_PROJECT" \
             -scheme WebDriverAgentRunner \
             -destination "platform=iOS Simulator,name=iPhone 16" \
-            -derivedDataPath "$WDA_DIR/DerivedData" \
+            -derivedDataPath "$DERIVED_DATA_PATH" \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
       # ------------------------------------------------------------
