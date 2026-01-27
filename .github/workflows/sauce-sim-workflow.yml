@@ -55,7 +55,7 @@ jobs:
             -scheme "$SCHEME" \
             "$FILE_FLAG" "$FILE_PATH" \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 16 Pro" \
+            -destination "platform=iOS Simulator,name=iPhone 17" \
             -derivedDataPath build-sim \
             ONLY_ACTIVE_ARCH=YES
       - name: Upload app to Sauce Labs
