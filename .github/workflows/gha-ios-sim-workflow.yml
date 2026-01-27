@@ -42,13 +42,13 @@ jobs:
           # Background the wait so we can start building the app immediately
           xcrun simctl bootstatus "$UDID" & 
 
-      # 3. Build the app for iOS Simulator
+      # 3. Build the app for iOS Simulator (Generic Destination)
       - name: Build App
         run: |
           xcodebuild build-for-testing \
             -scheme "$SCHEME" \
             -sdk iphonesimulator \
-            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -destination "platform=iOS Simulator,name=iPhone 16" \
             -derivedDataPath build-sim \
             CODE_SIGNING_ALLOWED=NO
 
