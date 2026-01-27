@@ -58,19 +58,28 @@ jobs:
             -destination "generic/platform=iOS Simulator" \
             -derivedDataPath build-sim \
             -configuration Debug \
-            ONLY_ACTIVE_ARCH=NO
+            ONLY_ACTIVE_ARCH=NO \
+            MARKETING_VERSION=1.0.0 \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }}
       - name: Upload app to Sauce Labs
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         run: |
+          # 1. Path where the successful build landed
           cd build-sim/Build/Products/Debug-iphonesimulator/
-          zip -ry Features-${{ github.run_number }}.zip Features.app
-          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
-            --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-            --form 'payload=@"Features-${{ github.run_number }}.zip"' \
-            --form 'name="Features.zip"' \
-            --form 'description="Build #${{ github.run_number }}"'
+          
+          # 2. Check if the Info.plist actually exists and has a version (Debug step)
+          defaults read $(pwd)/Features.app/Info CFBundleShortVersionString || echo "Version Missing!"
+
+          # 3. Zip with -y to preserve symlinks (critical for iOS frameworks)
+          zip -ry Features.zip Features.app
+          
+          # 4. Upload
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
+            --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+            --form 'payload=@"Features.zip"' \
+            --form 'name="Features.zip"'
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
