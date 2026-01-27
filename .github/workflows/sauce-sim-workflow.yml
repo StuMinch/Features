@@ -29,38 +29,28 @@ jobs:
           # Set the build number (Bundle Version) to the GitHub Run Number
           xcrun agvtool new-version -all ${{ github.run_number }}
       - name: Build for iOS Simulator
-        env:
-          scheme: ${{ 'default' }}
         run: |
-          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
-
-          if [ "$(ls -A | grep -i \.xcworkspace$)" ]; then 
-            filetype_parameter="workspace"
-            file_to_build="$(ls -A | grep -i \.xcworkspace$ | head -1)"
-          else 
-            filetype_parameter="project"
-            file_to_build="$(ls -A | grep -i \.xcodeproj$ | head -1)"
-          fi
+          # ... (your logic for scheme and filetype) ...
 
           xcodebuild build-for-testing \
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
             -sdk iphonesimulator \
-            -derivedDataPath build-sim
+            -destination "platform=iOS Simulator,name=iPhone 16 Pro" \
+            -derivedDataPath build-sim \
+            ONLY_ACTIVE_ARCH=YES
       - name: Upload app to Sauce Labs
         env:
-          scheme: ${{ 'default' }}
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         run: |
           cd build-sim/Build/Products/Debug-iphonesimulator/
-          zip -r Features-${{ github.run_number }}.zip Features.app
-          
-          # Upload to Sauce Labs Storage
-          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
-            --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+          zip -ry Features-${{ github.run_number }}.zip Features.app
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" \
+            --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
             --form 'payload=@"Features-${{ github.run_number }}.zip"' \
-            --form 'name="Features-${{ github.run_number }}.zip"'
+            --form 'name="Features.zip"' \
+            --form 'description="Build #${{ github.run_number }}"'
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
