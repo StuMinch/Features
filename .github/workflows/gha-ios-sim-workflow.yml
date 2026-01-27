@@ -66,14 +66,37 @@ jobs:
       # 6. Build the app for iOS Simulator (Bypassing Asset Thinning)
       - name: Build for iOS Simulator
         run: |
-          xcodebuild build-for-testing \
+          # 1. Determine Scheme
+          if [ -f default ]; then
+            SCHEME=$(cat default)
+          else
+            # Fallback: get the first target if 'default' file is missing
+            SCHEME=$(xcodebuild -list -json | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          fi
+
+          # 2. Determine Project vs Workspace
+          if [ -d *.xcworkspace ]; then 
+            FILE_FLAG="-workspace"
+            FILE_PATH=$(ls -d *.xcworkspace | head -1)
+          else 
+            FILE_FLAG="-project"
+            FILE_PATH=$(ls -d *.xcodeproj | head -1)
+          fi
+
+          echo "Building Scheme: $SCHEME"
+          echo "Using $FILE_FLAG: $FILE_PATH"
+
+          # 3. Execute Build
+          xcodebuild build \
             -scheme "$SCHEME" \
-            -sdk iphonesimulator18.5 \
-            -destination "id=${{ steps.sim.outputs.udid }}" \
+            "$FILE_FLAG" "$FILE_PATH" \
+            -sdk iphonesimulator \
+            -destination "generic/platform=iOS Simulator" \
             -derivedDataPath build-sim \
-            CODE_SIGNING_ALLOWED=NO \
-            ASSETCATALOG_COMPILER_SKIP_APP_SPECIFIC_TAPES=YES \
-            COMPILER_INDEX_STORE_ENABLE=NO
+            -configuration Debug \
+            ONLY_ACTIVE_ARCH=NO \
+            MARKETING_VERSION=1.0.0 \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }}
 
       # 7. Install Node + Appium + Driver
       - name: Install Appium
