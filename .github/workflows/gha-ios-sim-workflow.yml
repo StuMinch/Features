@@ -1,4 +1,4 @@
-name: iOS Local Simulator Workflow
+name: iOS GitHub Simulator Workflow
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   local-ios:
-    name: Build and Test on Local iOS Simulator
+    name: Build and Test on GitHub iOS Simulators
     runs-on: macos-latest
 
     steps:
