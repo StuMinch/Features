@@ -43,14 +43,20 @@ jobs:
           xcrun simctl bootstatus "$UDID" & 
 
       # 3. Build the app for iOS Simulator (Generic Destination)
-      - name: Build App
+      - name: Build for iOS Simulator
         run: |
+          # Use the environment variable we set in the earlier step
+          if [ "$SCHEME" = "default" ]; then SCHEME=$(cat default); fi
+
           xcodebuild build-for-testing \
             -scheme "$SCHEME" \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 16" \
             -derivedDataPath build-sim \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            ASSETCATALOG_COMPILER_SKIP_APP_SPECIFIC_TAPES=YES \
+            COMPILER_INDEX_STORE_ENABLE=NO
 
       # 4. Setup Node and Appium
       - name: Install Appium
