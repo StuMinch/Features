@@ -68,7 +68,7 @@ jobs:
         run: |
           xcodebuild build-for-testing \
             -scheme "$SCHEME" \
-            -sdk iphonesimulator \
+            -sdk iphonesimulator18.5 \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -derivedDataPath build-sim \
             CODE_SIGNING_ALLOWED=NO \
