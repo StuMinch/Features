@@ -1,4 +1,4 @@
-name: iOS Workflow on Sauce Labs Simulators
+name: iOS Workflow on Sauce Labs Real Devices
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build, Push and Test on Sauce Labs Simulators
+    name: Build, Push and Test on Sauce Labs Real Devices
     runs-on: macos-latest
 
     steps:
@@ -28,39 +28,47 @@ jobs:
           # Ensure we are in the directory with the .xcodeproj
           # Set the build number (Bundle Version) to the GitHub Run Number
           xcrun agvtool new-version -all ${{ github.run_number }}
-      - name: Build for iOS Simulator
+      - name: Build for Generic iOS Device
         env:
           scheme: ${{ 'default' }}
         run: |
           if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
-
-          if [ "$(ls -A | grep -i \.xcworkspace$)" ]; then 
+    
+          if [ "$(ls -A | grep -i \.xcworkspace\$)" ]; then 
             filetype_parameter="workspace"
-            file_to_build="$(ls -A | grep -i \.xcworkspace$ | head -1)"
+            file_to_build="$(ls -A | grep -i \.xcworkspace\$ | head -1)"
           else 
             filetype_parameter="project"
-            file_to_build="$(ls -A | grep -i \.xcodeproj$ | head -1)"
+            file_to_build="$(ls -A | grep -i \.xcodeproj\$ | head -1)"
           fi
 
           xcodebuild build-for-testing \
             -scheme "$scheme" \
             -"$filetype_parameter" "$file_to_build" \
-            -sdk iphonesimulator \
-            -derivedDataPath build-sim
+            -destination "generic/platform=iOS" \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES
       - name: Upload app to Sauce Labs
         env:
           scheme: ${{ 'default' }}
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         run: |
-          cd build-sim/Build/Products/Debug-iphonesimulator/
-          zip -r Features-${{ github.run_number }}.zip Features.app
+          cd build/Build/Products/Debug-iphoneos/
+          mkdir Payload
+          cp -r Features.app Payload/
+          zip -r Features-${{ github.run_number }}.ipa Payload
           
           # Upload to Sauce Labs Storage
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-            --form 'payload=@"Features-${{ github.run_number }}.zip"' \
-            --form 'name="Features-${{ github.run_number }}.zip"'
+            --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
+            --form 'name="Features-${{ github.run_number }}.ipa"'
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
@@ -69,8 +77,8 @@ jobs:
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         working-directory: ./features-wdio-tests
         run: |
-          export APP_VERSION=Features-${{ github.run_number }}.zip
+          export APP_VERSION=Features-${{ github.run_number }}.ipa
           echo $APP_VERSION
           echo $SAUCE_USERNAME
           npm clean-install
-          ./node_modules/.bin/wdio run gha.sauce.sim.conf.js
+          ./node_modules/.bin/wdio run gha.conf.js
