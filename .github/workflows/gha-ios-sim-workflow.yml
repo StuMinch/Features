@@ -154,7 +154,7 @@ jobs:
           xcodebuild build-for-testing \
             -project "$WDA_PATH" \
             -scheme WebDriverAgentRunner \
-            -destination "platform=iOS Simulator,name=${{ env.DEVICE_NAME }}" \
+            -destination "platform=iOS Simulator,name=iPhone 16" \
             -derivedDataPath "$WDA_DIR/DerivedData" \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
