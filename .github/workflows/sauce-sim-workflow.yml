@@ -30,11 +30,30 @@ jobs:
           xcrun agvtool new-version -all ${{ github.run_number }}
       - name: Build for iOS Simulator
         run: |
-          # ... (your logic for scheme and filetype) ...
+          # 1. Determine Scheme
+          if [ -f default ]; then
+            SCHEME=$(cat default)
+          else
+            # Fallback: get the first target if 'default' file is missing
+            SCHEME=$(xcodebuild -list -json | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          fi
 
+          # 2. Determine Project vs Workspace
+          if [ -d *.xcworkspace ]; then 
+            FILE_FLAG="-workspace"
+            FILE_PATH=$(ls -d *.xcworkspace | head -1)
+          else 
+            FILE_FLAG="-project"
+            FILE_PATH=$(ls -d *.xcodeproj | head -1)
+          fi
+
+          echo "Building Scheme: $SCHEME"
+          echo "Using $FILE_FLAG: $FILE_PATH"
+
+          # 3. Execute Build
           xcodebuild build-for-testing \
-            -scheme "$scheme" \
-            -"$filetype_parameter" "$file_to_build" \
+            -scheme "$SCHEME" \
+            "$FILE_FLAG" "$FILE_PATH" \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=iPhone 16 Pro" \
             -derivedDataPath build-sim \
