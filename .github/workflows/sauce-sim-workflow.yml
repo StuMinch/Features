@@ -51,13 +51,14 @@ jobs:
           echo "Using $FILE_FLAG: $FILE_PATH"
 
           # 3. Execute Build
-          xcodebuild build-for-testing \
+          xcodebuild build \
             -scheme "$SCHEME" \
             "$FILE_FLAG" "$FILE_PATH" \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 16" \
+            -destination "generic/platform=iOS Simulator" \
             -derivedDataPath build-sim \
-            ONLY_ACTIVE_ARCH=YES
+            -configuration Debug \
+            ONLY_ACTIVE_ARCH=NO
       - name: Upload app to Sauce Labs
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
