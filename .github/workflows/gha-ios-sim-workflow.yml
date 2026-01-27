@@ -97,7 +97,6 @@ jobs:
       - name: Start Appium Server
         run: |
           appium --log appium.log --log-level info &
-          timeout 60 bash -c 'until curl -s http://localhost:4723/status; do sleep 1; done'
 
       # Clone and Install Test Repo
       - name: Setup Test Repo
