@@ -1,0 +1,76 @@
+name: iOS Workflow on Sauce Labs Simulators
+
+on:
+  push:
+    branches:
+      - '**'
+
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Build, Push and Test on Sauce Labs Simulators
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo $default | cat >default
+          echo Using default scheme: $default
+      - name: Increment Build Number
+        run: |
+          # Ensure we are in the directory with the .xcodeproj
+          # Set the build number (Bundle Version) to the GitHub Run Number
+          xcrun agvtool new-version -all ${{ github.run_number }}
+      - name: Build for iOS Simulator
+        env:
+          scheme: ${{ 'default' }}
+        run: |
+          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
+
+          if [ "$(ls -A | grep -i \.xcworkspace$)" ]; then 
+            filetype_parameter="workspace"
+            file_to_build="$(ls -A | grep -i \.xcworkspace$ | head -1)"
+          else 
+            filetype_parameter="project"
+            file_to_build="$(ls -A | grep -i \.xcodeproj$ | head -1)"
+          fi
+
+          xcodebuild build-for-testing \
+            -scheme "$scheme" \
+            -"$filetype_parameter" "$file_to_build" \
+            -sdk iphonesimulator \
+            -derivedDataPath build-sim
+      - name: Upload app to Sauce Labs
+        env:
+          scheme: ${{ 'default' }}
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator/
+          zip -r Features-${{ github.run_number }}.zip Features.app
+          
+          # Upload to Sauce Labs Storage
+          curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
+            --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+            --form 'payload=@"Features-${{ github.run_number }}.zip"' \
+            --form 'name="Features-${{ github.run_number }}.zip"'
+      - name: Clone tests repo
+        run: git clone https://github.com/StuMinch/features-wdio-tests.git
+      - name: Run tests
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        working-directory: ./features-wdio-tests
+        run: |
+          export APP_VERSION=Features-${{ github.run_number }}.zip
+          echo $APP_VERSION
+          echo $SAUCE_USERNAME
+          npm clean-install
+          ./node_modules/.bin/wdio run gha.conf.js
