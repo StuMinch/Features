@@ -2,9 +2,11 @@ name: iOS GitHub Simulator Workflow
 
 on:
   push:
-    branches: [ "**" ]
+    branches:
+      - '**'
   pull_request:
-    branches: [ "**" ]
+    branches:
+      - '**'
 
 jobs:
   local-ios:
@@ -15,81 +17,95 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1. Use the specific Xcode version that supports iPhone 16 / iOS 18
-      - name: Select Xcode 16
+      # 1. Select Xcode 16 (Required for iPhone 16 / iOS 18 runtimes)
+      - name: Select Xcode version
         run: |
           sudo xcode-select -s /Applications/Xcode_16.app
           xcodebuild -version
 
+      # 2. Determine default scheme
       - name: Set Default Scheme
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
           default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo "$default" > default
           echo "SCHEME=$default" >> $GITHUB_ENV
+          echo "Using default scheme: $default"
 
-      # 2. Find and Boot Simulator EARLY to save time
-      - name: Select and Boot Simulator
+      # 3. Increment build number
+      - name: Increment Build Number
+        run: |
+          xcrun agvtool new-version -all ${{ github.run_number }}
+
+      # 4. Select ONLY a standard iPhone 16 (No Pro, No Plus)
+      - name: Select simulator
         id: sim
         run: |
-          DEVICE_INFO=$(xcrun simctl list devices available | grep "iPhone 16" | head -1)
+          echo "Looking for standard iPhone 16 simulator..."
+          # Exclude Pro and Plus to ensure a fair performance comparison
+          DEVICE_INFO=$(xcrun simctl list devices available | grep "iPhone 16 (" | grep -v "Pro" | grep -v "Plus" | head -1)
+
+          if [ -z "$DEVICE_INFO" ]; then
+            echo "No standard iPhone 16 found, falling back to any iPhone 16"
+            DEVICE_INFO=$(xcrun simctl list devices available | grep "iPhone 16" | head -1)
+          fi
+
           UDID=$(echo "$DEVICE_INFO" | awk -F '[()]' '{print $2}')
           NAME=$(echo "$DEVICE_INFO" | awk -F '[()]' '{print $1}' | sed 's/^[[:space:]]*//')
-          
+
+          echo "Selected device: $NAME ($UDID)"
           echo "udid=$UDID" >> $GITHUB_OUTPUT
           echo "name=$NAME" >> $GITHUB_OUTPUT
-          
-          xcrun simctl boot "$UDID" || true
-          # Background the wait so we can start building the app immediately
-          xcrun simctl bootstatus "$UDID" & 
 
-      # 3. Build the app for iOS Simulator (Generic Destination)
+      # 5. Boot simulator in background
+      - name: Boot simulator
+        run: |
+          xcrun simctl boot "${{ steps.sim.outputs.udid }}" || true
+          xcrun simctl bootstatus "${{ steps.sim.outputs.udid }}" -b &
+
+      # 6. Build the app for iOS Simulator (Bypassing Asset Thinning)
       - name: Build for iOS Simulator
         run: |
-          # Use the environment variable we set in the earlier step
-          if [ "$SCHEME" = "default" ]; then SCHEME=$(cat default); fi
-
           xcodebuild build-for-testing \
             -scheme "$SCHEME" \
             -sdk iphonesimulator \
-            -destination "platform=iOS Simulator,name=iPhone 16" \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
             -derivedDataPath build-sim \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
             ASSETCATALOG_COMPILER_SKIP_APP_SPECIFIC_TAPES=YES \
             COMPILER_INDEX_STORE_ENABLE=NO
 
-      # 4. Setup Node and Appium
+      # 7. Install Node + Appium + Driver
       - name: Install Appium
         run: |
           npm install -g appium
           appium driver install xcuitest
 
-      # 5. Start Appium and Wait for Port 4723 to be active
+      # 8. Start Appium and Wait for Port 4723
       - name: Start Appium Server
         run: |
           appium --log appium.log --log-level info &
-          # Wait up to 60s for Appium to respond to a status check
           timeout 60 bash -c 'until curl -s http://localhost:4723/status; do sleep 1; done'
 
-      - name: Clone and Install Tests
+      # 9. Clone and Install Test Repo
+      - name: Setup Test Repo
         run: |
           git clone https://github.com/StuMinch/features-wdio-tests.git
           cd features-wdio-tests && npm clean-install
 
-      # 6. Pre-build WDA into the workspace-relative path
+      # 10. Pre-build WebDriverAgent (Crucial for avoiding Session Timeouts)
       - name: Pre-build WebDriverAgent
         run: |
-          # Use find to be safe regardless of npm flattening
           WDA_PROJECT=$(find ./features-wdio-tests/node_modules -name "WebDriverAgent.xcodeproj" | head -1)
-          
           xcodebuild build-for-testing \
             -project "$WDA_PROJECT" \
             -scheme WebDriverAgentRunner \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -derivedDataPath "${{ github.workspace }}/wda_derived_data" \
-            CODE_SIGNING_ALLOWED=NO | xcpretty
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO | xcpretty
 
-      # 7. Run tests with absolute paths
+      # 11. Run tests
       - name: Run tests on local simulator
         working-directory: ./features-wdio-tests
         env:
@@ -100,12 +116,12 @@ jobs:
         run: |
           ./node_modules/.bin/wdio run gha.local.conf.js
 
-      # 8. Upload Logs on Failure
-      - name: Upload Logs
+      # 12. Capture artifacts on failure
+      - name: Upload Debug Logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: appium-and-syslogs
+          name: ios-test-logs
           path: |
             appium.log
             ./features-wdio-tests/logs/
