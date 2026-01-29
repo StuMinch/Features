@@ -1,0 +1,24 @@
+{
+  "originHash" : "f4d729b456eba06c69f3c124f4474db2fe71f7c34600ab97716de977cb08cbb6",
+  "pins" : [
+    {
+      "identity" : "backtrace-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/backtrace-labs/backtrace-cocoa.git",
+      "state" : {
+        "revision" : "64a2c7a9d7f14fc531ca6676626156b9825590d8",
+        "version" : "2.1.0"
+      }
+    },
+    {
+      "identity" : "plcrashreporter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/microsoft/plcrashreporter.git",
+      "state" : {
+        "revision" : "8c61e5e38e9f737dd68512ed1ea5ab081244ad65",
+        "version" : "1.12.0"
+      }
+    }
+  ],
+  "version" : 3
+}
