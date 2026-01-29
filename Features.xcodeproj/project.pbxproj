@@ -19,6 +19,9 @@
 		17E30DC02C03922500E60561 /* FeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DBF2C03922500E60561 /* FeaturesTests.swift */; };
 		17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DC92C03922500E60561 /* FeaturesUITests.swift */; };
 		17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */; };
+		532E1C332F2AB2050074BEC8 /* Backtrace in Frameworks */ = {isa = PBXBuildFile; productRef = 532E1C322F2AB2050074BEC8 /* Backtrace */; };
+		532E1C362F2AB5A80074BEC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532E1C352F2AB5A80074BEC8 /* AppDelegate.swift */; };
+		532E1C382F2B0EAD0074BEC8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */; };
 		536323322EF46EAE00E9EBBA /* BiometricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536323312EF46EAE00E9EBBA /* BiometricsView.swift */; };
 		536323342EF4776300E9EBBA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536323332EF4776300E9EBBA /* Theme.swift */; };
 		647416CC2D0A1F7900D0E1A8 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647416CB2D0A1F7300D0E1A8 /* TestHelpers.swift */; };
@@ -59,6 +62,10 @@
 		17E30DC52C03922500E60561 /* FeaturesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeaturesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17E30DC92C03922500E60561 /* FeaturesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITests.swift; sourceTree = "<group>"; };
 		17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		532E1C352F2AB5A80074BEC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		532E1C392F2B0F800074BEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		532E1C3A2F2B10700074BEC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		536323312EF46EAE00E9EBBA /* BiometricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsView.swift; sourceTree = "<group>"; };
 		536323332EF4776300E9EBBA /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6434A8AF2C9882DD007FA0C9 /* Features.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Features.entitlements; sourceTree = "<group>"; };
@@ -74,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532E1C332F2AB2050074BEC8 /* Backtrace in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +105,7 @@
 		17E30DA22C03922400E60561 = {
 			isa = PBXGroup;
 			children = (
+				532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */,
 				17E30DAD2C03922400E60561 /* Features */,
 				17E30DBE2C03922500E60561 /* FeaturesTests */,
 				17E30DC82C03922500E60561 /* FeaturesUITests */,
@@ -117,6 +126,8 @@
 		17E30DAD2C03922400E60561 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				532E1C3A2F2B10700074BEC8 /* Info.plist */,
+				532E1C352F2AB5A80074BEC8 /* AppDelegate.swift */,
 				6434A8AF2C9882DD007FA0C9 /* Features.entitlements */,
 				17E30DAE2C03922400E60561 /* FeaturesApp.swift */,
 				536323312EF46EAE00E9EBBA /* BiometricsView.swift */,
@@ -154,6 +165,7 @@
 		17E30DC82C03922500E60561 /* FeaturesUITests */ = {
 			isa = PBXGroup;
 			children = (
+				532E1C392F2B0F800074BEC8 /* Info.plist */,
 				647416CB2D0A1F7300D0E1A8 /* TestHelpers.swift */,
 				17E30DC92C03922500E60561 /* FeaturesUITests.swift */,
 				17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */,
@@ -249,6 +261,9 @@
 				Base,
 			);
 			mainGroup = 17E30DA22C03922400E60561;
+			packageReferences = (
+				532E1C312F2AB2050074BEC8 /* XCRemoteSwiftPackageReference "backtrace-cocoa" */,
+			);
 			productRefGroup = 17E30DAC2C03922400E60561 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,6 +282,7 @@
 			files = (
 				17E30DB62C03922500E60561 /* Preview Assets.xcassets in Resources */,
 				17E30DB32C03922500E60561 /* Assets.xcassets in Resources */,
+				532E1C382F2B0EAD0074BEC8 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532E1C362F2AB5A80074BEC8 /* AppDelegate.swift in Sources */,
 				175423942C03E52B00310374 /* WebView.swift in Sources */,
 				64A6131A2CD56A5F00FC2BF2 /* APICallsView.swift in Sources */,
 				6481FC052CD007A000AA51DE /* MapView.swift in Sources */,
@@ -343,6 +360,7 @@
 /* Begin XCBuildConfiguration section */
 		17E30DCD2C03922500E60561 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -375,7 +393,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -406,6 +424,7 @@
 		};
 		17E30DCE2C03922500E60561 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -462,17 +481,21 @@
 		};
 		17E30DD02C03922500E60561 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Features/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Features;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Prompt for camera access in order to scan QR Codes.";
@@ -486,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0;
+				MARKETING_VERSION = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -499,17 +522,20 @@
 		};
 		17E30DD12C03922500E60561 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 532E1C372F2B0EAD0074BEC8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Features/Features.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Features/Preview Content\"";
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				ENABLE_PREVIEWS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Features/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Features;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Prompt for camera access in order to scan QR Codes.";
@@ -523,7 +549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.0;
+				MARKETING_VERSION = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hextablelabs.Features;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -582,6 +608,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeaturesUITests/Info.plist;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minchington.FeaturesUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -600,6 +627,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FZ477BG7U9;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FeaturesUITests/Info.plist;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minchington.FeaturesUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -650,6 +678,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		532E1C312F2AB2050074BEC8 /* XCRemoteSwiftPackageReference "backtrace-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/backtrace-labs/backtrace-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		532E1C322F2AB2050074BEC8 /* Backtrace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532E1C312F2AB2050074BEC8 /* XCRemoteSwiftPackageReference "backtrace-cocoa" */;
+			productName = Backtrace;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 17E30DA32C03922400E60561 /* Project object */;
 }
