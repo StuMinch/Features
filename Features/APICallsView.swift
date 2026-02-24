@@ -25,7 +25,7 @@ struct APICallsView: View {
             Button(action: {
                 sendRequests()
             }) {
-                Text("Send 25 GET Requests")
+                Text("Generate Network Traffic")
                     .padding()
                     .background(isRequesting ? Color.gray : Color.blue)
                     .foregroundColor(.white)
