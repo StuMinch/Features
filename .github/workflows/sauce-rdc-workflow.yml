@@ -65,11 +65,14 @@ jobs:
           cp -r Features.app Payload/
           zip -r Features-${{ github.run_number }}.ipa Payload
           
-          # Upload to Sauce Labs Storage
+          echo "***** Uploading to Sauce Labs Storage *****"
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
             --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
             --form 'name="Features-${{ github.run_number }}.ipa"'
+
+          echo "***** Uploading to Sauce Labs App Distribution *****"
+          curl --request POST https://mobile.saucelabs.com/api/upload/ -F api_key="$SAUCE_APP_DISTRIBUTION_KEY" -F file=@Features-${{ github.run_number }}.ipa
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
       - name: Run tests
