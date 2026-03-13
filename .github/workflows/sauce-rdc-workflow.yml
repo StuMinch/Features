@@ -58,6 +58,7 @@ jobs:
           scheme: ${{ 'default' }}
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+          SAUCE_APP_DISTRIBUTION_KEY: ${{ secrets.SAUCE_APP_DISTRIBUTION_KEY }}
         run: |
           cd build/Build/Products/Debug-iphoneos/
           mkdir Payload
