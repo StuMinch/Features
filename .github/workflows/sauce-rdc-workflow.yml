@@ -71,7 +71,10 @@ jobs:
             --form 'name="Features-${{ github.run_number }}.ipa"'
 
           # Upload to Sauce Labs App Distribution
-          curl https://mobile.saucelabs.com/api/upload/ -F api_key=${{ secrets.SAUCE_APP_DISTRIBUTION_KEY }} -F Features-${{ github.run_number }}.ipa
+          curl -k $SAUCE_APP_DISTRIBUTION_KEY --location \
+            --request POST 'https://mobile.saucelabs.com/api/upload/' \
+            --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
+            --form 'name="Features-${{ github.run_number }}.ipa"'
 
       - name: Clone tests repo
         run: git clone https://github.com/StuMinch/features-wdio-tests.git
