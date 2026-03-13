@@ -64,13 +64,13 @@ jobs:
           cp -r Features.app Payload/
           zip -r Features-${{ github.run_number }}.ipa Payload
           
-          # Upload to Sauce Labs Storage
+          echo "Uploading app to Sauce Labs Mobile App Storage..."
           curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
             --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
             --form 'name="Features-${{ github.run_number }}.ipa"'
 
-          # Upload to Sauce Labs App Distribution
+          echo "Uploading app to Sauce Labs Mobile App Distribution..."
           curl https://mobile.saucelabs.com/api/upload/ \
           -F api_key=$SAUCE_APP_DISTRIBUTION_KEY \
           -F file=@Features-${{ github.run_number }}.ipa
