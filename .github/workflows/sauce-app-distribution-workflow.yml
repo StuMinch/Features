@@ -1,0 +1,69 @@
+name: Sauce Labs App Distribution Workflow
+
+on:
+  push:
+    branches:
+      - '**'
+
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Build and push to Sauce Labs App Distribution
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo $default | cat >default
+          echo Using default scheme: $default
+      - name: Increment Build Number
+        run: |
+          # Ensure we are in the directory with the .xcodeproj
+          # Set the build number (Bundle Version) to the GitHub Run Number
+          xcrun agvtool new-version -all ${{ github.run_number }}
+      - name: Build Ad Hoc Archive
+        env:
+          scheme: ${{ 'default' }}
+        run: |
+          if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
+    
+          if [ "$(ls -A | grep -i \.xcworkspace\$)" ]; then 
+            filetype_parameter="workspace"
+            file_to_build="$(ls -A | grep -i \.xcworkspace\$ | head -1)"
+          else 
+            filetype_parameter="project"
+            file_to_build="$(ls -A | grep -i \.xcodeproj\$ | head -1)"
+          fi
+
+          xcodebuild archive \
+            -scheme "$scheme" \
+            -"$filetype_parameter" "$file_to_build" \
+            -destination "generic/platform=iOS" \
+            -sdk iphoneos \
+            -archivePath build/Features.xcarchive \
+            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGNING_REQUIRED=YES \
+            CODE_SIGN_IDENTITY="" \
+            PROVISIONING_PROFILE_SPECIFIER="Apple Distribution" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES
+
+      - name: Upload app to Sauce Labs
+        env:
+          scheme: ${{ 'default' }}
+          SAUCE_APP_DISTRIBUTION_KEY: ${{ secrets.SAUCE_APP_DISTRIBUTION_KEY }}
+        run: |
+          cd build/Build/Products/Debug-iphoneos/
+          mkdir Payload
+          cp -r Features.app Payload/
+          zip -r Features-${{ github.run_number }}.ipa Payload
+
+          echo "***** Uploading to Sauce Labs App Distribution *****"
+          curl --request POST https://mobile.saucelabs.com/api/upload/ -F api_key="$SAUCE_APP_DISTRIBUTION_KEY" -F file=@Features-${{ github.run_number }}.ipa
+
