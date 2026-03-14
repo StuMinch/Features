@@ -54,6 +54,11 @@ jobs:
             PROVISIONING_PROFILE_SPECIFIER="Apple Distribution" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES
 
+          xcodebuild -exportArchive \
+            -archivePath build/Features.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/Build/Products/Debug-iphoneos/
+
       - name: Upload app to Sauce Labs
         env:
           scheme: ${{ 'default' }}
