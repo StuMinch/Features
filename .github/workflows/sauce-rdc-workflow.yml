@@ -80,7 +80,7 @@ jobs:
             -F folder_name=iOS \
             -F group=Features-Beta
 
-          echo "***** Notifying Beta Testers *****"
+          echo "***** Notifying Beta Group *****"
           curl -u "stuart.minchington@saucelabs.com:$SAUCE_APP_DISTRIBUTION_KEY" https://api.testfairy.com/api/1/testers/ \
             -F email="stuart.minchington@saucelabs.com" \
             -F group=Features-Beta \
