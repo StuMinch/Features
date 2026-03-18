@@ -1,4 +1,4 @@
-name: iOS Workflow on Sauce Labs Real Devices
+name: iOS Distribution Workflow on Sauce Labs Real Devices
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build, Push and Test on Sauce Labs Real Devices
+    name: Build and Distribute on Sauce Labs Real Devices
     runs-on: macos-latest
 
     steps:
