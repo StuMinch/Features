@@ -78,7 +78,7 @@ jobs:
             -F metadata.branch=master \
             -F metadata.locale=us-en \
             -F folder_name=iOS \
-            -F group=Features-Beta
+            -F group=Features-Beta \
             -F notify=on
 
           echo "***** Notifying Beta Group *****"
