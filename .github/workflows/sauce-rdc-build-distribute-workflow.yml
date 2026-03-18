@@ -77,7 +77,7 @@ jobs:
             -F file=@Features-${{ github.run_number }}.ipa \
             -F metadata.branch=master \
             -F metadata.locale=us-en \
-            -F folder_name=iOS \
+            -F folder_name=Features \
             -F group=Features-Beta \
             -F notify=on
 
