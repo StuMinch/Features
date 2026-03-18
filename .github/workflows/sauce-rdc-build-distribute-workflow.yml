@@ -71,7 +71,7 @@ jobs:
             --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
             --form 'name="Features-${{ github.run_number }}.ipa"'
 
-          echo "***** Uploading to Sauce Labs App Distribution *****"
+          echo "***** Uploading to Sauce Labs Mobile App Distribution *****"
           curl https://upload.testfairy.com/api/upload \
             -F api_key=$SAUCE_APP_DISTRIBUTION_KEY \
             -F file=@Features-${{ github.run_number }}.ipa \
