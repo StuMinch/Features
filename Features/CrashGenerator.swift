@@ -1,3 +1,11 @@
+//
+//  CrashGenerator.swift
+//  Features
+//
+//  Created by Stuart Minchington on 3/17/26.
+//
+
+
 import Foundation
 
 @MainActor
@@ -22,10 +30,10 @@ enum CrashGenerator {
         obj.perform(Selector(("nonexistentMethod")))
     }
 
-    static func triggerDivideByZero() {
-        let x = 1 / 0
-        print(x)
-    }
+//    static func triggerDivideByZero() {
+//        let x = 1 / 0
+//        print(x)
+//    }
 
     static func triggerConcurrencyViolation() {
         actor DemoActor {

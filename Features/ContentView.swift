@@ -34,7 +34,17 @@ struct ContentView: View {
                     }
                     .accessibilityIdentifier("Geolocation")
                     
-                    NavigationLink(destination: WebView(url: URL(string: "https://www.fast.com")!)) {
+                    NavigationLink(destination: CrashDemoView()) {
+                        FeatureRow(icon: "exclamationmark.circle", title: "Crash Demo")
+                    }
+                    .accessibilityIdentifier("CrashDemoView")
+                    
+                    NavigationLink(destination: WebView(url: URL(string: "https://www.saucelabs.com")!)) {
+                        FeatureRow(icon: "globe", title: "WebView")
+                    }
+                    .accessibilityIdentifier("WebView")
+                    
+                    NavigationLink(destination: NetworkThrottling(url: URL(string: "https://www.fast.com")!)) {
                         FeatureRow(icon: "wifi.slash", title: "Network Throttling")
                     }
                     .accessibilityIdentifier("Network Throttling")

@@ -1,3 +1,11 @@
+//
+//  CrashDemoView.swift
+//  Features
+//
+//  Created by Stuart Minchington on 3/17/26.
+//
+
+
 import SwiftUI
 
 struct CrashDemoView: View {
@@ -22,9 +30,9 @@ struct CrashDemoView: View {
                     CrashGenerator.triggerObjCException()
                 }
 
-                Button("Divide by Zero Crash") {
-                    CrashGenerator.triggerDivideByZero()
-                }
+ //               Button("Divide by Zero Crash") {
+ //                   CrashGenerator.triggerDivideByZero()
+ //               }
             }
 
             Section("Swift Concurrency Crash") {
