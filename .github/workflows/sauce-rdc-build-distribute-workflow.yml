@@ -1,4 +1,4 @@
-name: iOS Workflow on Sauce Labs Real Devices
+name: iOS Distribution Workflow on Sauce Labs Real Devices
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build, Push and Test on Sauce Labs Real Devices
+    name: Build and Distribute on Sauce Labs Real Devices
     runs-on: macos-latest
 
     steps:
@@ -71,31 +71,18 @@ jobs:
             --form 'payload=@"Features-${{ github.run_number }}.ipa"' \
             --form 'name="Features-${{ github.run_number }}.ipa"'
 
-          echo "***** Uploading to Sauce Labs App Distribution *****"
+          echo "***** Uploading to Sauce Labs Mobile App Distribution *****"
           curl https://upload.testfairy.com/api/upload \
             -F api_key=$SAUCE_APP_DISTRIBUTION_KEY \
             -F file=@Features-${{ github.run_number }}.ipa \
             -F metadata.branch=master \
             -F metadata.locale=us-en \
-            -F folder_name=iOS \
-            -F group=Features-Beta
+            -F folder_name=Features \
+            -F group=Features-Beta \
+            -F notify=on
 
           echo "***** Notifying Beta Group *****"
           curl -u "stuart.minchington@saucelabs.com:$SAUCE_APP_DISTRIBUTION_KEY" https://api.testfairy.com/api/1/testers/ \
             -F email="stuart.minchington@saucelabs.com" \
             -F group=Features-Beta \
             -F notify=on
-      
-      - name: Clone tests repo
-        run: git clone https://github.com/StuMinch/features-wdio-tests.git
-      - name: Run tests
-        env:
-          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-        working-directory: ./features-wdio-tests
-        run: |
-          export APP_VERSION=Features-${{ github.run_number }}.ipa
-          echo $APP_VERSION
-          echo $SAUCE_USERNAME
-          npm clean-install
-          ./node_modules/.bin/wdio run gha.conf.js
