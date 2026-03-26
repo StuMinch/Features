@@ -18,9 +18,12 @@ struct APICallsView: View {
         VStack(spacing: 20) {
             Text("Request Status")
                 .font(.headline)
+                .accessibilityIdentifier("api.statusHeader")
             
             Text("Success: \(successCount) / 25")
+                .accessibilityIdentifier("api.successLabel")
             Text("Failures: \(failureCount) / 25")
+                .accessibilityIdentifier("api.failureLabel")
             
             Button(action: {
                 sendRequests()
@@ -31,6 +34,7 @@ struct APICallsView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+                    .accessibilityIdentifier("api.sendRequestsButton")
             .disabled(isRequesting)
         }
         .padding()
