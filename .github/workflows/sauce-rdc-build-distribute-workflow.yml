@@ -82,7 +82,7 @@ jobs:
             -F notify=on
 
           echo "***** Notifying Beta Group *****"
-          curl -u "stuart.minchington@saucelabs.com:$SAUCE_APP_DISTRIBUTION_KEY" https://api.testfairy.com/api/1/testers/ \
-            -F email="stuart.minchington@saucelabs.com" \
+          curl -u "stuart.minchington+sedemo@saucelabs.com:$SAUCE_APP_DISTRIBUTION_KEY" https://api.testfairy.com/api/1/testers/ \
+            -F email="stuart.minchington+sedemo@saucelabs.com" \
             -F group=Features-Beta \
             -F notify=on
