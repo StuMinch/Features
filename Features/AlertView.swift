@@ -15,6 +15,7 @@ struct AlertView: View {
         Button("Generate Alert") {
           showingAlert = true
         }
+        .accessibilityIdentifier("alerts.generateButton")
         .padding()
         .background(Color(red: 0, green: 0, blue: 0.5))
         .foregroundStyle(.white)

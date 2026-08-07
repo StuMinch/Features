@@ -32,6 +32,14 @@
 		64A6131A2CD56A5F00FC2BF2 /* APICallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A613192CD56A5F00FC2BF2 /* APICallsView.swift */; };
 		64DA2B6B2C741B820025D34B /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA2B6A2C741B820025D34B /* TextFieldView.swift */; };
 		64F102DB2C98913D00EE2E47 /* ApplePayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F102DA2C98913D00EE2E47 /* ApplePayButtonView.swift */; };
+		A1B2C3012F70000100AA0001 /* BaseUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0001 /* BaseUITestCase.swift */; };
+		A1B2C3012F70000100AA0002 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0002 /* HomeScreen.swift */; };
+		A1B2C3012F70000100AA0003 /* AlertScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0003 /* AlertScreen.swift */; };
+		A1B2C3012F70000100AA0004 /* TextFieldScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0004 /* TextFieldScreen.swift */; };
+		A1B2C3012F70000100AA0005 /* APICallsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0005 /* APICallsScreen.swift */; };
+		A1B2C3012F70000100AA0006 /* AlertScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0006 /* AlertScreenTests.swift */; };
+		A1B2C3012F70000100AA0007 /* TextFieldScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0007 /* TextFieldScreenTests.swift */; };
+		A1B2C3012F70000100AA0008 /* APICallsScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0008 /* APICallsScreenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +88,14 @@
 		64A613192CD56A5F00FC2BF2 /* APICallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallsView.swift; sourceTree = "<group>"; };
 		64DA2B6A2C741B820025D34B /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		64F102DA2C98913D00EE2E47 /* ApplePayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayButtonView.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0001 /* BaseUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITestCase.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0002 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0003 /* AlertScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScreen.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0004 /* TextFieldScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldScreen.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0005 /* APICallsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallsScreen.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0006 /* AlertScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0007 /* TextFieldScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C3112F70000100AA0008 /* APICallsScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallsScreenTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,10 +192,34 @@
 			children = (
 				532E1C392F2B0F800074BEC8 /* Info.plist */,
 				647416CB2D0A1F7300D0E1A8 /* TestHelpers.swift */,
+				A1B2C3212F70000100AA0001 /* Screens */,
+				A1B2C3212F70000100AA0002 /* Tests */,
 				17E30DC92C03922500E60561 /* FeaturesUITests.swift */,
 				17E30DCB2C03922500E60561 /* FeaturesUITestsLaunchTests.swift */,
 			);
 			path = FeaturesUITests;
+			sourceTree = "<group>";
+		};
+		A1B2C3212F70000100AA0001 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3112F70000100AA0002 /* HomeScreen.swift */,
+				A1B2C3112F70000100AA0003 /* AlertScreen.swift */,
+				A1B2C3112F70000100AA0004 /* TextFieldScreen.swift */,
+				A1B2C3112F70000100AA0005 /* APICallsScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		A1B2C3212F70000100AA0002 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3112F70000100AA0001 /* BaseUITestCase.swift */,
+				A1B2C3112F70000100AA0006 /* AlertScreenTests.swift */,
+				A1B2C3112F70000100AA0007 /* TextFieldScreenTests.swift */,
+				A1B2C3112F70000100AA0008 /* APICallsScreenTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,6 +388,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				175423962C03E52B00310374 /* WebView.swift in Sources */,
+				A1B2C3012F70000100AA0001 /* BaseUITestCase.swift in Sources */,
+				A1B2C3012F70000100AA0002 /* HomeScreen.swift in Sources */,
+				A1B2C3012F70000100AA0003 /* AlertScreen.swift in Sources */,
+				A1B2C3012F70000100AA0004 /* TextFieldScreen.swift in Sources */,
+				A1B2C3012F70000100AA0005 /* APICallsScreen.swift in Sources */,
+				A1B2C3012F70000100AA0006 /* AlertScreenTests.swift in Sources */,
+				A1B2C3012F70000100AA0007 /* TextFieldScreenTests.swift in Sources */,
+				A1B2C3012F70000100AA0008 /* APICallsScreenTests.swift in Sources */,
 				17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */,
 				17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */,
 				647416CC2D0A1F7900D0E1A8 /* TestHelpers.swift in Sources */,
