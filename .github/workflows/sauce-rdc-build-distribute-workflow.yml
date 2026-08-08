@@ -96,10 +96,14 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
 
-      - name: Archive for distribution
+      - name: Show available signing identities
+        run: security find-identity -v -p codesigning $RUNNER_TEMP/build.keychain
+
+      - name: Archive for In-House distribution
         env:
-          scheme: ${{ 'default' }}
+          scheme: default
           DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+          PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
         run: |
           if [ "$scheme" = "default" ]; then scheme=$(cat default); fi
 
@@ -120,7 +124,8 @@ jobs:
             -allowProvisioningUpdates \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
-            CODE_SIGN_IDENTITY="iPhone Distribution"
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME"
 
       - name: Export IPA
         run: |
