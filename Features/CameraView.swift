@@ -24,6 +24,7 @@ struct CameraView: View {
                         Text("Scanned Code Found")
                             .font(SauceTypography.headerFont)
                             .foregroundColor(SauceColors.textPrimary)
+                            .accessibilityIdentifier("camera.scannedTitle")
                         
                         Text(code)
                             .font(SauceTypography.bodyFont)
@@ -40,6 +41,7 @@ struct CameraView: View {
                         Button("Scan Again") {
                             self.scannedCode = nil
                         }
+                        .accessibilityIdentifier("camera.scanAgainButton")
                         .buttonStyle(SauceButtonStyle())
                     }
                     .padding()
@@ -59,6 +61,7 @@ struct CameraView: View {
                                     .stroke(SauceColors.accent, lineWidth: 1)
                             )
                             .padding(.bottom, 50)
+                            .accessibilityIdentifier("camera.instructionLabel")
                     }
                 }
             }

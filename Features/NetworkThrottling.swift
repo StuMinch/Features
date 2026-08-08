@@ -16,6 +16,7 @@ struct NetworkThrottling: UIViewRepresentable {
     
     func makeUIView(context: Context) -> some UIView {
         let webView = WKWebView()
+        webView.accessibilityIdentifier = "networkThrottling.webview"
         let request = URLRequest(url: url)
         webView.load(request)
         return webView

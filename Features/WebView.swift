@@ -15,6 +15,7 @@ struct WebView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> some UIView {
         let webView = WKWebView()
+        webView.accessibilityIdentifier = "webview.main"
         let request = URLRequest(url: url)
         webView.load(request)
         return webView

@@ -25,6 +25,7 @@ struct BiometricsView: View {
                         Text("Authenticated")
                             .font(SauceTypography.headerFont)
                             .foregroundColor(SauceColors.accent)
+                            .accessibilityIdentifier("biometrics.authenticatedLabel")
                         
                         Text("Access Granted")
                             .font(SauceTypography.bodyFont)
@@ -37,6 +38,7 @@ struct BiometricsView: View {
                             isUnlocked = false
                         }
                     }
+                    .accessibilityIdentifier("biometrics.lockButton")
                     .buttonStyle(SauceButtonStyle())
                 } else {
                     VStack(spacing: 20) {
@@ -46,11 +48,13 @@ struct BiometricsView: View {
                         Text("Locked")
                             .font(SauceTypography.headerFont)
                             .foregroundColor(.red)
+                            .accessibilityIdentifier("biometrics.lockedLabel")
                     }
                     
                     Button(action: authenticate) {
                         Label("Authenticate", systemImage: "faceid")
                     }
+                    .accessibilityIdentifier("biometrics.authenticateButton")
                     .buttonStyle(SauceButtonStyle())
                 }
                 
@@ -62,6 +66,7 @@ struct BiometricsView: View {
                         .multilineTextAlignment(.center)
                         .background(Color.red.opacity(0.1))
                         .cornerRadius(8)
+                        .accessibilityIdentifier("biometrics.errorLabel")
                 }
             }
             .padding()

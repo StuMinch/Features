@@ -40,6 +40,20 @@
 		A1B2C3012F70000100AA0006 /* AlertScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0006 /* AlertScreenTests.swift */; };
 		A1B2C3012F70000100AA0007 /* TextFieldScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0007 /* TextFieldScreenTests.swift */; };
 		A1B2C3012F70000100AA0008 /* APICallsScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3112F70000100AA0008 /* APICallsScreenTests.swift */; };
+		A1B2C4012F70000100AA0001 /* BiometricsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0001 /* BiometricsScreen.swift */; };
+		A1B2C4012F70000100AA0002 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0002 /* CameraScreen.swift */; };
+		A1B2C4012F70000100AA0003 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0003 /* MapScreen.swift */; };
+		A1B2C4012F70000100AA0004 /* CrashDemoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0004 /* CrashDemoScreen.swift */; };
+		A1B2C4012F70000100AA0005 /* ApplePayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0005 /* ApplePayScreen.swift */; };
+		A1B2C4012F70000100AA0006 /* WebViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0006 /* WebViewScreen.swift */; };
+		A1B2C4012F70000100AA0007 /* NetworkThrottlingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0007 /* NetworkThrottlingScreen.swift */; };
+		A1B2C4012F70000100AA0008 /* BiometricsScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0008 /* BiometricsScreenTests.swift */; };
+		A1B2C4012F70000100AA0009 /* CameraScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0009 /* CameraScreenTests.swift */; };
+		A1B2C4012F70000100AA0010 /* MapScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0010 /* MapScreenTests.swift */; };
+		A1B2C4012F70000100AA0011 /* CrashDemoScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0011 /* CrashDemoScreenTests.swift */; };
+		A1B2C4012F70000100AA0012 /* ApplePayScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0012 /* ApplePayScreenTests.swift */; };
+		A1B2C4012F70000100AA0013 /* WebViewScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0013 /* WebViewScreenTests.swift */; };
+		A1B2C4012F70000100AA0014 /* NetworkThrottlingScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C4112F70000100AA0014 /* NetworkThrottlingScreenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +110,20 @@
 		A1B2C3112F70000100AA0006 /* AlertScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScreenTests.swift; sourceTree = "<group>"; };
 		A1B2C3112F70000100AA0007 /* TextFieldScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldScreenTests.swift; sourceTree = "<group>"; };
 		A1B2C3112F70000100AA0008 /* APICallsScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallsScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0001 /* BiometricsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0002 /* CameraScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0003 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0004 /* CrashDemoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDemoScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0005 /* ApplePayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0006 /* WebViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0007 /* NetworkThrottlingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkThrottlingScreen.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0008 /* BiometricsScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0009 /* CameraScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0010 /* MapScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0011 /* CrashDemoScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashDemoScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0012 /* ApplePayScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0013 /* WebViewScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewScreenTests.swift; sourceTree = "<group>"; };
+		A1B2C4112F70000100AA0014 /* NetworkThrottlingScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkThrottlingScreenTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +235,13 @@
 				A1B2C3112F70000100AA0003 /* AlertScreen.swift */,
 				A1B2C3112F70000100AA0004 /* TextFieldScreen.swift */,
 				A1B2C3112F70000100AA0005 /* APICallsScreen.swift */,
+				A1B2C4112F70000100AA0001 /* BiometricsScreen.swift */,
+				A1B2C4112F70000100AA0002 /* CameraScreen.swift */,
+				A1B2C4112F70000100AA0003 /* MapScreen.swift */,
+				A1B2C4112F70000100AA0004 /* CrashDemoScreen.swift */,
+				A1B2C4112F70000100AA0005 /* ApplePayScreen.swift */,
+				A1B2C4112F70000100AA0006 /* WebViewScreen.swift */,
+				A1B2C4112F70000100AA0007 /* NetworkThrottlingScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -218,6 +253,13 @@
 				A1B2C3112F70000100AA0006 /* AlertScreenTests.swift */,
 				A1B2C3112F70000100AA0007 /* TextFieldScreenTests.swift */,
 				A1B2C3112F70000100AA0008 /* APICallsScreenTests.swift */,
+				A1B2C4112F70000100AA0008 /* BiometricsScreenTests.swift */,
+				A1B2C4112F70000100AA0009 /* CameraScreenTests.swift */,
+				A1B2C4112F70000100AA0010 /* MapScreenTests.swift */,
+				A1B2C4112F70000100AA0011 /* CrashDemoScreenTests.swift */,
+				A1B2C4112F70000100AA0012 /* ApplePayScreenTests.swift */,
+				A1B2C4112F70000100AA0013 /* WebViewScreenTests.swift */,
+				A1B2C4112F70000100AA0014 /* NetworkThrottlingScreenTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -393,9 +435,23 @@
 				A1B2C3012F70000100AA0003 /* AlertScreen.swift in Sources */,
 				A1B2C3012F70000100AA0004 /* TextFieldScreen.swift in Sources */,
 				A1B2C3012F70000100AA0005 /* APICallsScreen.swift in Sources */,
+				A1B2C4012F70000100AA0001 /* BiometricsScreen.swift in Sources */,
+				A1B2C4012F70000100AA0002 /* CameraScreen.swift in Sources */,
+				A1B2C4012F70000100AA0003 /* MapScreen.swift in Sources */,
+				A1B2C4012F70000100AA0004 /* CrashDemoScreen.swift in Sources */,
+				A1B2C4012F70000100AA0005 /* ApplePayScreen.swift in Sources */,
+				A1B2C4012F70000100AA0006 /* WebViewScreen.swift in Sources */,
+				A1B2C4012F70000100AA0007 /* NetworkThrottlingScreen.swift in Sources */,
 				A1B2C3012F70000100AA0006 /* AlertScreenTests.swift in Sources */,
 				A1B2C3012F70000100AA0007 /* TextFieldScreenTests.swift in Sources */,
 				A1B2C3012F70000100AA0008 /* APICallsScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0008 /* BiometricsScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0009 /* CameraScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0010 /* MapScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0011 /* CrashDemoScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0012 /* ApplePayScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0013 /* WebViewScreenTests.swift in Sources */,
+				A1B2C4012F70000100AA0014 /* NetworkThrottlingScreenTests.swift in Sources */,
 				17E30DCC2C03922500E60561 /* FeaturesUITestsLaunchTests.swift in Sources */,
 				17E30DCA2C03922500E60561 /* FeaturesUITests.swift in Sources */,
 				647416CC2D0A1F7900D0E1A8 /* TestHelpers.swift in Sources */,
@@ -457,7 +513,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -522,7 +578,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

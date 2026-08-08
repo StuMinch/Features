@@ -15,20 +15,24 @@ struct CrashDemoView: View {
                 Button("Fatal Error Crash") {
                     CrashGenerator.triggerFatalError()
                 }
+                .accessibilityIdentifier("crash.fatalErrorButton")
 
                 Button("Nil Unwrap Crash") {
                     CrashGenerator.triggerNilUnwrap()
                 }
+                .accessibilityIdentifier("crash.nilUnwrapButton")
 
                 Button("Array Out of Bounds Crash") {
                     CrashGenerator.triggerArrayOutOfBounds()
                 }
+                .accessibilityIdentifier("crash.arrayOutOfBoundsButton")
             }
 
             Section("Objective‑C / Low‑Level Crashes") {
                 Button("Objective‑C Exception Crash") {
                     CrashGenerator.triggerObjCException()
                 }
+                .accessibilityIdentifier("crash.objcExceptionButton")
 
  //               Button("Divide by Zero Crash") {
  //                   CrashGenerator.triggerDivideByZero()
@@ -39,6 +43,7 @@ struct CrashDemoView: View {
                 Button("Actor Isolation Violation Crash") {
                     CrashGenerator.triggerConcurrencyViolation()
                 }
+                .accessibilityIdentifier("crash.concurrencyViolationButton")
             }
         }
         .navigationTitle("Crash Demo")

@@ -56,6 +56,7 @@ struct MapView: View {
                     Button("Enable Location Access") {
                         locationManager.requestPermission()
                     }
+                    .accessibilityIdentifier("geo.enableAccessButton")
                     .buttonStyle(SauceButtonStyle())
                     .padding(.top)
                 } else if locationManager.authorizationStatus == .denied || locationManager.authorizationStatus == .restricted {
@@ -63,6 +64,7 @@ struct MapView: View {
                         .font(SauceTypography.captionFont)
                         .foregroundColor(.red)
                         .padding(.top)
+                        .accessibilityIdentifier("geo.deniedLabel")
                 }
 
                 Map(position: $cameraPosition) {
@@ -73,6 +75,7 @@ struct MapView: View {
                     MapCompass()
                     MapScaleView()
                 }
+                .accessibilityIdentifier("geo.map")
                 .onAppear {
                     locationManager.requestPermission()
                 }

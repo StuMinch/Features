@@ -16,6 +16,7 @@ struct ApplePayButtonView: View {
                     .frame(width: 200, height: 50)
             } else {
                 Text("Apple Pay is not available on this device")
+                    .accessibilityIdentifier("applePay.unavailableLabel")
             }
         }
     }
@@ -48,6 +49,7 @@ struct ApplePayButton: UIViewRepresentable {
     
     func makeUIView(context: Context) -> PKPaymentButton {
         let button = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
+        button.accessibilityIdentifier = "applePay.buyButton"
         button.addTarget(context.coordinator, action: #selector(Coordinator.didTapButton), for: .touchUpInside)
         return button
     }
