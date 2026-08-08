@@ -104,7 +104,7 @@ jobs:
           for f in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
             echo "=== $f ==="
             security cms -D -i "$f" | plutil -extract Name raw -
-            security cms -D -i "$f" | plutil -extract application-identifier raw - -expect string
+            security cms -D -i "$f" | plutil -extract application-identifier raw -
             security cms -D -i "$f" | plutil -extract TeamIdentifier.0 raw -
             security cms -D -i "$f" | plutil -extract ExpirationDate raw -
             echo "---"
