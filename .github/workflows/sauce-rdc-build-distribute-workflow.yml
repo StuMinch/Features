@@ -104,9 +104,10 @@ jobs:
           for f in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
             echo "=== $f ==="
             security cms -D -i "$f" | plutil -extract Name raw -
-            security cms -D -i "$f" | plutil -extract application-identifier raw -
+            security cms -D -i "$f" | plutil -extract Entitlements.application-identifier raw -
             security cms -D -i "$f" | plutil -extract TeamIdentifier.0 raw -
             security cms -D -i "$f" | plutil -extract ExpirationDate raw -
+            security cms -D -i "$f" | plutil -extract ProvisionsAllDevices raw - 2>/dev/null || echo "ProvisionsAllDevices: not set"
             echo "---"
           done
       
