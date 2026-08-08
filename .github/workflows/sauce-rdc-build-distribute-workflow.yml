@@ -99,6 +99,17 @@ jobs:
       - name: Show available signing identities
         run: security find-identity -v -p codesigning $RUNNER_TEMP/build.keychain
 
+      - name: List installed provisioning profiles
+        run: |
+          for f in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            echo "=== $f ==="
+            security cms -D -i "$f" | plutil -extract Name raw -
+            security cms -D -i "$f" | plutil -extract application-identifier raw - -expect string
+            security cms -D -i "$f" | plutil -extract TeamIdentifier.0 raw -
+            security cms -D -i "$f" | plutil -extract ExpirationDate raw -
+            echo "---"
+          done
+      
       - name: Archive for In-House distribution
         env:
           scheme: default
