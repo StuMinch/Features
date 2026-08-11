@@ -53,6 +53,54 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             PROVISIONING_PROFILE_SPECIFIER="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES
+            
+      - name: Upload dSYM to Backtrace (submit symbols)
+        env:
+          BACKTRACE_SUBDOMAIN: ${{ secrets.BACKTRACE_SUBDOMAIN }}
+          BACKTRACE_API_TOKEN: ${{ secrets.BACKTRACE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          ARCHIVE_PATH=build/App.xcarchive
+
+          if [ ! -d "$ARCHIVE_PATH" ]; then
+            echo "Archive not found at $ARCHIVE_PATH; skipping dSYM upload"
+            exit 0
+          fi
+
+          # Find the first .dSYM inside the archive
+          DSYM_DIR=$(find "$ARCHIVE_PATH" -type d -name "*.dSYM" | head -n 1 || true)
+
+          if [ -z "$DSYM_DIR" ]; then
+            echo "No .dSYM found in $ARCHIVE_PATH; skipping dSYM upload"
+            exit 0
+          fi
+
+          ZIP_NAME=Features-${{ github.run_number }}-dSYM.zip
+          echo "Zipping dSYM: $DSYM_DIR -> $ZIP_NAME"
+          /usr/bin/zip -r "$ZIP_NAME" "$(basename "$DSYM_DIR")" -x "*/__MACOSX/*" >/dev/null 2>&1 || true
+
+          # Ensure zip contains the dSYM directory at top-level
+          (cd "$(dirname "$DSYM_DIR")" && /usr/bin/zip -r "$PWD/$ZIP_NAME" "$(basename "$DSYM_DIR")")
+
+          echo "Uploading $ZIP_NAME to Backtrace submit symbol endpoint"
+          RESPONSE=$(curl --silent --show-error --write-out "HTTPSTATUS:%{http_code}" -X POST \
+            "https://submit.backtrace.io/${BACKTRACE_SUBDOMAIN}/${BACKTRACE_API_TOKEN}/symbols" \
+            -F "symbols=@$ZIP_NAME")
+
+          HTTP_STATUS=$(echo "$RESPONSE" | tr -d '\r' | sed -n 's/.*HTTPSTATUS:\([0-9][0-9][0-9]\)$/\1/p')
+          BODY=$(echo "$RESPONSE" | sed 's/HTTPSTATUS:.*$//')
+
+          echo "Backtrace response status: $HTTP_STATUS"
+          echo "$BODY"
+
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+            echo "dSYM upload successful"
+          else
+            echo "dSYM upload failed with status $HTTP_STATUS"
+            exit 1
+          fi
+      
       - name: Upload to Sauce Labs App Storage for testing
         env:
           scheme: ${{ 'default' }}
@@ -164,49 +212,4 @@ jobs:
             -F group=Features-Beta \
             -F notify=on
 
-      - name: Upload dSYM to Backtrace (submit symbols)
-        env:
-          BACKTRACE_SUBDOMAIN: ${{ secrets.BACKTRACE_SUBDOMAIN }}
-          BACKTRACE_API_TOKEN: ${{ secrets.BACKTRACE_API_TOKEN }}
-        run: |
-          set -euo pipefail
-
-          ARCHIVE_PATH=build/App.xcarchive
-
-          if [ ! -d "$ARCHIVE_PATH" ]; then
-            echo "Archive not found at $ARCHIVE_PATH; skipping dSYM upload"
-            exit 0
-          fi
-
-          # Find the first .dSYM inside the archive
-          DSYM_DIR=$(find "$ARCHIVE_PATH" -type d -name "*.dSYM" | head -n 1 || true)
-
-          if [ -z "$DSYM_DIR" ]; then
-            echo "No .dSYM found in $ARCHIVE_PATH; skipping dSYM upload"
-            exit 0
-          fi
-
-          ZIP_NAME=Features-${{ github.run_number }}-dSYM.zip
-          echo "Zipping dSYM: $DSYM_DIR -> $ZIP_NAME"
-          /usr/bin/zip -r "$ZIP_NAME" "$(basename "$DSYM_DIR")" -x "*/__MACOSX/*" >/dev/null 2>&1 || true
-
-          # Ensure zip contains the dSYM directory at top-level
-          (cd "$(dirname "$DSYM_DIR")" && /usr/bin/zip -r "$PWD/$ZIP_NAME" "$(basename "$DSYM_DIR")")
-
-          echo "Uploading $ZIP_NAME to Backtrace submit symbol endpoint"
-          RESPONSE=$(curl --silent --show-error --write-out "HTTPSTATUS:%{http_code}" -X POST \
-            "https://submit.backtrace.io/${BACKTRACE_SUBDOMAIN}/${BACKTRACE_API_TOKEN}/symbols" \
-            -F "symbols=@$ZIP_NAME")
-
-          HTTP_STATUS=$(echo "$RESPONSE" | tr -d '\r' | sed -n 's/.*HTTPSTATUS:\([0-9][0-9][0-9]\)$/\1/p')
-          BODY=$(echo "$RESPONSE" | sed 's/HTTPSTATUS:.*$//')
-
-          echo "Backtrace response status: $HTTP_STATUS"
-          echo "$BODY"
-
-          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
-            echo "dSYM upload successful"
-          else
-            echo "dSYM upload failed with status $HTTP_STATUS"
-            exit 1
-          fi
+      
