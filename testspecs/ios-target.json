@@ -1,0 +1,7 @@
+{
+  "capabilities": {
+    "platformName": "iOS",
+    "appium:deviceName": "iPhone 16 Pro",
+    "appium:app": "storage:4c1859ba-4f8e-4e77-ac24-66fb09b1423d"
+    }
+}
