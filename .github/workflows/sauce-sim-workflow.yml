@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build, Push and Test on Sauce Labs Simulators
+    name: Build, Push and Test on Sauce Labs ARM-based iOS Simulators
     runs-on: macos-latest
 
     steps:
