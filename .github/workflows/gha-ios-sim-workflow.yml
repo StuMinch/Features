@@ -10,7 +10,7 @@ on:
 
 jobs:
   local-ios:
-    name: Build and Test on GitHub iOS Simulators
+    name: Build and Test on GitHub Actions iOS Simulators
     runs-on: macos-latest
 
     steps:
